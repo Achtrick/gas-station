@@ -53,7 +53,7 @@ export default function Categories() {
                 form="form"
                 style={{
                   background: "black",
-                  color: "white",
+                  color: "#ffffff",
                   height: "35px",
                   width: "80px",
                 }}
