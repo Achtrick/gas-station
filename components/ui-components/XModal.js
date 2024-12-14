@@ -1,7 +1,7 @@
+import { ModalSizes } from "@/components/ui-components/ModalSizes";
+import styles from "@/styles/components/XModal.module.scss";
+import CloseIcon from "@mui/icons-material/Close";
 import { Button, CircularProgress, IconButton, Modal } from "@mui/material";
-import styles from "../../styles/components/XModal.module.scss";
-import { CloseIcon } from "../../utils/theme/icons";
-import { ModalSizes } from "../admin/ModalSettings";
 
 function XModal({
   loading,
@@ -34,7 +34,7 @@ function XModal({
           <div className={styles.header}>
             <p>{title}</p>
             <IconButton color="white" onClick={onClose}>
-              <CloseIcon></CloseIcon>
+              <CloseIcon />
             </IconButton>
           </div>
           <div className={styles.content}>
@@ -53,7 +53,7 @@ function XModal({
                       variant="contained"
                       onClick={cancelAction}
                     >
-                      annuler
+                      cancel
                     </Button>
                     &nbsp;
                     <Button
@@ -64,7 +64,7 @@ function XModal({
                       onClick={confirmAction ? confirmAction : null}
                       form={formId ? formId : null}
                     >
-                      confirmer
+                      confirm
                     </Button>
                   </>
                 )}

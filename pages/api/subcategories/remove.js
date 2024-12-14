@@ -1,17 +1,16 @@
 import auth from "@/middlewares/admin-auth";
-import Product from "@/models/product.model";
+import SubCategory from "@/models/subCategory.model";
 import connectDB from "@/utils/config/connectDB";
 import nc from "next-connect";
 
 const handler = nc();
 
-handler.get(auth, async (req, res) => {
+handler.post(auth, async (req, res) => {
+  const { _id } = req.body;
   await connectDB();
   try {
-    const products = await Product.find({}).populate({
-      path: "subCategory",
-    });
-    res.status(200).json(products);
+    await SubCategory.findByIdAndDelete(_id);
+    res.status(200).json({ message: "sub-category removed" });
   } catch (err) {
     res.status(400).json(err);
   }

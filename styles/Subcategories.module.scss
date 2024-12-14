@@ -1,2 +1,5 @@
-.container {
+@import "./Arena.module.scss";
+
+.datagrid {
+  height: calc(100dvh - 230px);
 }

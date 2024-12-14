@@ -15,7 +15,7 @@ a {
 }
 /* Scrollbar Track */
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 8px;
   height: 4px;
 }
 
@@ -90,12 +90,43 @@ input[type="number"]::-webkit-outer-spin-button {
   label {
     font-size: 14px;
     text-transform: capitalize;
+    color: var(--first-color);
   }
   textarea {
     resize: none;
     height: 100px;
     max-height: 300px;
     min-height: 100px;
+  }
+}
+
+.defaultSelect {
+  background: whitesmoke;
+  color: black;
+  width: 100%;
+  height: 40px;
+  padding: 5px;
+  margin: 5px 0px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+
+  &:hover {
+    border-color: #888;
+  }
+  option {
+    background: white;
+    color: black;
+    cursor: pointer;
+
+    &:checked {
+      background: black;
+      color: white;
+    }
+    :hover {
+      background: whitesmoke;
+      color: black;
+    }
   }
 }
 
@@ -194,6 +225,9 @@ th {
 }
 .swiper-pagination-bullet-active {
   background-color: black !important;
+}
+.MuiInputBase-root {
+  background-color: whitesmoke;
 }
 
 @media (max-width: 800px) {

@@ -7,13 +7,20 @@
     align-items: flex-start;
 
     form {
-      width: 40%;
-      max-width: 400px;
+      width: 60%;
+      max-width: 800px;
       min-width: 250px;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: flex-start;
+
+      .row {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
     }
   }
   .datagrid {
@@ -24,12 +31,14 @@
   svg {
     color: var(--first-color);
   }
-  tr {
-    transition: all 0.3s;
+  tbody {
+    tr {
+      transition: all 0.3s;
 
-    &:hover {
-      background-color: var(--second-color);
-      color: black;
+      &:hover {
+        background-color: var(--second-color);
+        color: black;
+      }
     }
   }
 }
@@ -38,6 +47,13 @@
   .container {
     .datagrid {
       border-bottom: 1px solid transparent;
+    }
+  }
+  .container {
+    .dataform {
+      form {
+        width: 100%;
+      }
     }
   }
 }

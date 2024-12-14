@@ -1,2 +1,15 @@
-.container {
+@import "./Arena.module.scss";
+
+.datagrid {
+  height: calc(100dvh - 440px);
+}
+.qrcode {
+  width: 100%;
+  position: relative;
+
+  .qrcodeButton {
+    position: absolute;
+    right: 0px;
+    top: 5px;
+  }
 }

@@ -3,7 +3,7 @@ import { Schema, model, models } from "mongoose";
 const productSchema = new Schema(
   {
     designation: { type: String, default: "" },
-    code: { type: String, default: "" },
+    code: { type: String, default: "", unique: true },
     image: { type: String, default: "" },
     buyingPrice: { type: Number, default: 0 },
     sellingPrice: { type: Number, default: 0 },

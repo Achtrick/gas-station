@@ -1,5 +1,6 @@
 import DisconnectedGuard from "@/components/guards/disconnectedGuard";
 import Layout from "@/components/Layout";
+import { ModalSizes } from "@/components/ui-components/ModalSizes";
 import XActionMenu from "@/components/ui-components/XActionMenu";
 import XHr from "@/components/ui-components/XHr";
 import styles from "@/styles/Categories.module.scss";
@@ -15,6 +16,7 @@ export default function Categories() {
 
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
   const [formData, setFormData] = useState({
     _id: null,
     name: "",
@@ -66,6 +68,7 @@ export default function Categories() {
       enqueueSnackbar(data.message, { variant: "success" });
       setLoading(false);
       clearFormData();
+      setModalOpen(false);
       await getCategories();
     } catch (error) {
       enqueueSnackbar(getError(error), { variant: "error" });
@@ -79,11 +82,24 @@ export default function Categories() {
 
   return (
     <DisconnectedGuard>
-      <Layout loading={loading}>
+      <Layout
+        loading={loading}
+        modal={{
+          size: ModalSizes.SMALL,
+          loading: loading,
+          open: modalOpen,
+          title: "delete category",
+          content:
+            "if you delete the category, all subcategories and products under it will be deleted !",
+          confirmAction: remove,
+          cancelAction: () => setModalOpen(false),
+          onClose: () => setModalOpen(false),
+        }}
+      >
         <XActionMenu
           add={{ disabled: false, action: clearFormData }}
           save={{ disabled: false, action: submitForm }}
-          remove={{ disabled: !formData._id, action: remove }}
+          remove={{ disabled: !formData._id, action: () => setModalOpen(true) }}
         />
         <section className={styles.container}>
           <div className={styles.dataform}>
