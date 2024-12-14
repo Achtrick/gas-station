@@ -3,7 +3,7 @@ import Layout from "@/components/Layout";
 import { ModalSizes } from "@/components/ui-components/ModalSizes";
 import XActionMenu from "@/components/ui-components/XActionMenu";
 import XHr from "@/components/ui-components/XHr";
-import styles from "@/styles/SubCategories.module.scss";
+import styles from "@/styles/Scategories.module.scss";
 import { getError } from "@/utils/shared/getError";
 import WidgetsIcon from "@mui/icons-material/Widgets";
 import axios from "axios";

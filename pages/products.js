@@ -107,8 +107,6 @@ export default function Products() {
   };
 
   const onQrCodeSuccess = (qrCode) => {
-    console.log(qrCode);
-
     setFormData({ ...formData, code: qrCode });
     setQrCodeOpen(false);
   };
