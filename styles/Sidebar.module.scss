@@ -30,6 +30,9 @@
   .navigation {
     width: 100%;
   }
+  svg {
+    color: var(--first-color);
+  }
 }
 .open {
   width: 300px;
@@ -38,6 +41,7 @@
   position: fixed;
   padding: 5px;
   width: 55px;
+  z-index: 1100;
   align-items: center;
   a {
     justify-content: center;

@@ -5,11 +5,12 @@ import nc from "next-connect";
 
 const handler = nc();
 
-handler.get(auth, async (req, res) => {
+handler.post(auth, async (req, res) => {
+  const { _id } = req.body;
   await connectDB();
   try {
-    const categories = await Category.find({});
-    res.status(200).json(categories);
+    await Category.findByIdAndDelete(_id);
+    res.status(200).json({ message: "category removed" });
   } catch (err) {
     res.status(400).json(err);
   }

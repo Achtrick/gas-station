@@ -1,29 +1,34 @@
 import DisconnectedGuard from "@/components/guards/disconnectedGuard";
 import Layout from "@/components/Layout";
+import XActionMenu from "@/components/ui-components/XActionMenu";
 import XHr from "@/components/ui-components/XHr";
 import styles from "@/styles/Categories.module.scss";
+import { getError } from "@/utils/shared/getError";
 import DashboardIcon from "@mui/icons-material/Dashboard";
-import { Button, CircularProgress } from "@mui/material";
+import axios from "axios";
 import { useSnackbar } from "notistack";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function Categories() {
   const { enqueueSnackbar } = useSnackbar();
+  const submitButton = useRef();
 
+  const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
-    designation: "",
+    _id: null,
+    name: "",
   });
 
   const onChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const save = async (e) => {
-    e.preventDefault();
+  const getCategories = async () => {
     setLoading(true);
     try {
-      // const { data } = await axios.post("api/products/add", formData);
+      const { data } = await axios.get("api/categories/get");
+      setCategories(data);
       setLoading(false);
     } catch (error) {
       enqueueSnackbar(getError(error), { variant: "error" });
@@ -31,125 +36,102 @@ export default function Categories() {
     }
   };
 
+  const clearFormData = async () => {
+    setFormData({ _id: null, name: "" });
+  };
+
+  const submitForm = () => {
+    submitButton.current.click();
+  };
+
+  const save = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      const { data } = await axios.post("api/categories/save", formData);
+      enqueueSnackbar(data.message, { variant: "success" });
+      setLoading(false);
+      clearFormData();
+      await getCategories();
+    } catch (error) {
+      enqueueSnackbar(getError(error), { variant: "error" });
+      setLoading(false);
+    }
+  };
+
+  const remove = async () => {
+    setLoading(true);
+    try {
+      const { data } = await axios.post("api/categories/remove", formData);
+      enqueueSnackbar(data.message, { variant: "success" });
+      setLoading(false);
+      clearFormData();
+      await getCategories();
+    } catch (error) {
+      enqueueSnackbar(getError(error), { variant: "error" });
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getCategories();
+  }, []);
+
   return (
     <DisconnectedGuard>
-      <Layout>
+      <Layout loading={loading}>
+        <XActionMenu
+          add={{ disabled: false, action: clearFormData }}
+          save={{ disabled: false, action: submitForm }}
+          remove={{ disabled: !formData._id, action: remove }}
+        />
         <section className={styles.container}>
           <div className={styles.dataform}>
-            <form id="form" onSubmit={save}>
-              <DashboardIcon style={{ width: "100px", height: "100px" }} />
+            <form onSubmit={save}>
+              <DashboardIcon style={{ width: "60px", height: "60px" }} />
               <input
                 required
                 type="text"
-                name="designation"
-                placeholder="designation"
+                name="name"
+                placeholder="name"
                 className="defaultInput"
+                value={formData.name}
                 onChange={onChange}
               />
-              <br />
-              <Button
-                disabled={loading}
+              <button
+                ref={submitButton}
                 type="submit"
-                form="form"
-                style={{
-                  background: "black",
-                  color: "#ffffff",
-                  height: "35px",
-                  width: "80px",
-                }}
-                variant="contained"
-              >
-                {loading ? (
-                  <CircularProgress style={{ color: "white" }} size={20} />
-                ) : (
-                  "save"
-                )}
-              </Button>
+                style={{ display: "none" }}
+              ></button>
             </form>
           </div>
-          <XHr color={"#000000"} />
+          <XHr color={"var(--first-color)"} />
           <div className={styles.datagrid}>
             <table className="defaultTable">
               <thead>
-                <th colSpan={2}>designation</th>
+                <tr>
+                  <th>name</th>
+                </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td data-label="Designation">fake</td>
-                  <td data-label="Action">delete</td>
-                </tr>
-                <tr>
-                  <td data-label="Designation">fake</td>
-                  <td data-label="Action">delete</td>
-                </tr>
-                <tr>
-                  <td data-label="Designation">fake</td>
-                  <td data-label="Action">delete</td>
-                </tr>
-                <tr>
-                  <td data-label="Designation">fake</td>
-                  <td data-label="Action">delete</td>
-                </tr>
-                <tr>
-                  <td data-label="Designation">fake</td>
-                  <td data-label="Action">delete</td>
-                </tr>
-                <tr>
-                  <td data-label="Designation">fake</td>
-                  <td data-label="Action">delete</td>
-                </tr>
-                <tr>
-                  <td data-label="Designation">fake</td>
-                  <td data-label="Action">delete</td>
-                </tr>
-                <tr>
-                  <td data-label="Designation">fake</td>
-                  <td data-label="Action">delete</td>
-                </tr>
-                <tr>
-                  <td data-label="Designation">fake</td>
-                  <td data-label="Action">delete</td>
-                </tr>
-                <tr>
-                  <td data-label="Designation">fake</td>
-                  <td data-label="Action">delete</td>
-                </tr>
-                <tr>
-                  <td data-label="Designation">fake</td>
-                  <td data-label="Action">delete</td>
-                </tr>
-                <tr>
-                  <td data-label="Designation">fake</td>
-                  <td data-label="Action">delete</td>
-                </tr>
-                <tr>
-                  <td data-label="Designation">fake</td>
-                  <td data-label="Action">delete</td>
-                </tr>
-                <tr>
-                  <td data-label="Designation">fake</td>
-                  <td data-label="Action">delete</td>
-                </tr>
-                <tr>
-                  <td data-label="Designation">fake</td>
-                  <td data-label="Action">delete</td>
-                </tr>
-                <tr>
-                  <td data-label="Designation">fake</td>
-                  <td data-label="Action">delete</td>
-                </tr>
-                <tr>
-                  <td data-label="Designation">fake</td>
-                  <td data-label="Action">delete</td>
-                </tr>
-                <tr>
-                  <td data-label="Designation">fake</td>
-                  <td data-label="Action">delete</td>
-                </tr>
-                <tr>
-                  <td data-label="Designation">fake</td>
-                  <td data-label="Action">delete</td>
-                </tr>
+                {categories.map((category) => {
+                  return (
+                    <tr
+                      key={category._id}
+                      onClick={() => setFormData(category)}
+                      style={
+                        category._id === formData._id
+                          ? {
+                              backgroundColor: "var(--first-color)",
+                              color: "white",
+                            }
+                          : null
+                      }
+                    >
+                      <td data-label="Name">{category.name}</td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>

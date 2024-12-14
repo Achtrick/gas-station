@@ -1,33 +1,5 @@
-.container {
-  .dataform {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+@import "./Arena.module.scss";
 
-    form {
-      width: 40%;
-      max-width: 400px;
-      min-width: 250px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-    }
-  }
-  .datagrid {
-    width: 100%;
-    height: calc(100dvh - 280px);
-    overflow-y: scroll;
-    border-bottom: 1px solid #ccc;
-  }
-}
-
-@media (max-width: 800px) {
-  .container {
-    .datagrid {
-      border-bottom: 1px solid transparent;
-    }
-  }
+.datagrid {
+  height: calc(100dvh - 180px);
 }

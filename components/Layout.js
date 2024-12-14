@@ -1,12 +1,16 @@
 import styles from "@/styles/Layout.module.scss";
 import Sidebar from "./Sidebar";
+import XLoader from "./ui-components/XLoader";
 
-function Layout(props) {
+function Layout({ loading, children }) {
   return (
-    <section className={styles.container}>
-      <Sidebar />
-      <section className={styles.content}>{props.children}</section>
-    </section>
+    <>
+      {loading ? <XLoader /> : null}
+      <section className={styles.container}>
+        <Sidebar />
+        <section className={styles.content}>{children}</section>
+      </section>
+    </>
   );
 }
 

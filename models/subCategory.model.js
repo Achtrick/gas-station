@@ -2,7 +2,7 @@ import { Schema, model, models } from "mongoose";
 
 const subCategorySchema = new Schema(
   {
-    name: String,
+    name: { type: String, unique: true },
     category: { type: Schema.Types.ObjectId, ref: "Category" },
   },
   { timestamps: true }

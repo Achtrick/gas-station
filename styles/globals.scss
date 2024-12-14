@@ -15,14 +15,12 @@ a {
 }
 /* Scrollbar Track */
 ::-webkit-scrollbar {
-  width: 4px;
+  width: 10px;
   height: 4px;
-  border-radius: 5px !important;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  border-radius: 5px !important;
   background-color: #ccc; /* Change this to your preferred color */
 }
 
@@ -38,7 +36,6 @@ a {
     #f0f0f0,
     #d9d9d9
   ); /* Gradient background */
-  border-radius: 4px !important;
 }
 
 :root {
@@ -146,6 +143,7 @@ input[type="number"]::-webkit-outer-spin-button {
   text-transform: capitalize;
 }
 .defaultTable tbody tr {
+  cursor: pointer;
   border: 1px solid #ccc;
   height: 40px;
   text-align: left;
@@ -220,7 +218,7 @@ th {
     background-color: whitesmoke;
     border: 1px solid #ccc;
     display: block;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     height: 100% !important;
   }
   .defaultTable tbody tr {

@@ -1,0 +1,43 @@
+.container {
+  .dataform {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+
+    form {
+      width: 40%;
+      max-width: 400px;
+      min-width: 250px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+    }
+  }
+  .datagrid {
+    width: 100%;
+    overflow-y: scroll;
+    border-bottom: 1px solid #ccc;
+  }
+  svg {
+    color: var(--first-color);
+  }
+  tr {
+    transition: all 0.3s;
+
+    &:hover {
+      background-color: var(--second-color);
+      color: black;
+    }
+  }
+}
+
+@media (max-width: 800px) {
+  .container {
+    .datagrid {
+      border-bottom: 1px solid transparent;
+    }
+  }
+}
