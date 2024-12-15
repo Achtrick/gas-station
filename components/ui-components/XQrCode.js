@@ -6,9 +6,12 @@ import { useEffect, useState } from "react";
 function XQrCode({ closeAction, onSuccess }) {
   const [cameraId, setCameraId] = useState("");
 
+  var html5QrCode;
+
   useEffect(() => {
     Html5Qrcode.getCameras().then((devices) => {
       if (devices && devices.length) {
+        alert(JSON.stringify(devices));
         setCameraId(devices[devices.length - 1].id);
       }
     });
@@ -21,12 +24,24 @@ function XQrCode({ closeAction, onSuccess }) {
   }, []);
 
   useEffect(() => {
-    if (cameraId.length) {
-      const html5QrCode = new Html5Qrcode("reader");
-      html5QrCode.start(cameraId, null, (qrCode) => {
-        onSuccess(qrCode);
-        html5QrCode.stop();
-      });
+    if (!!cameraId) {
+      html5QrCode = new Html5Qrcode("reader");
+      html5QrCode.start(
+        cameraId,
+        null,
+        async (qrCode) => {
+          if (html5QrCode.setTorchState) {
+            await html5QrCode.setTorchState(false);
+          }
+          onSuccess(qrCode);
+          html5QrCode.stop();
+        },
+        async () => {
+          if (html5QrCode.setTorchState) {
+            await html5QrCode.setTorchState(true);
+          }
+        }
+      );
     }
   }, [cameraId]);
 
@@ -37,7 +52,13 @@ function XQrCode({ closeAction, onSuccess }) {
         <div id="reader" className={styles.reader}></div>
       </div>
       <div className={styles.close}>
-        <IconButton onClick={closeAction} color="black">
+        <IconButton
+          onClick={() => {
+            html5QrCode.stop();
+            closeAction();
+          }}
+          color="black"
+        >
           <Close />
         </IconButton>
       </div>
