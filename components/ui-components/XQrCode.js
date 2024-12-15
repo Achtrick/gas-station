@@ -9,7 +9,7 @@ function XQrCode({ closeAction, onSuccess }) {
   useEffect(() => {
     Html5Qrcode.getCameras().then((devices) => {
       if (devices && devices.length) {
-        setCameraId(devices[0].id);
+        setCameraId(devices[devices.length - 1].id);
       }
     });
   }, []);
