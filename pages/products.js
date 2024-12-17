@@ -3,15 +3,18 @@ import Layout from "@/components/Layout";
 import { ModalSizes } from "@/components/ui-components/ModalSizes";
 import XActionMenu from "@/components/ui-components/XActionMenu";
 import XHr from "@/components/ui-components/XHr";
+import XPagination from "@/components/ui-components/XPagination";
 import styles from "@/styles/Products.module.scss";
 import { getError } from "@/utils/shared/getError";
-import { Inventory, QrCode } from "@mui/icons-material";
+import { Clear, Inventory, QrCode, Search } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
 import axios from "axios";
 import { useSnackbar } from "notistack";
 import { useEffect, useRef, useState } from "react";
 
 export default function Products() {
+  const searchField = useRef();
+
   const { enqueueSnackbar } = useSnackbar();
   const submitButton = useRef();
 
@@ -31,13 +34,17 @@ export default function Products() {
     subCategory: "",
   });
 
+  const [page, setPage] = useState(0);
+  const [count, setCount] = useState(0);
+  const [searchTerm, setSearchTerm] = useState("");
+
   const onChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const getSubCategories = async () => {
     try {
-      const { data } = await axios.get("api/subcategories/get");
+      const { data } = await axios.post("api/subcategories/get");
       setSubCategories(data);
     } catch (error) {
       enqueueSnackbar(getError(error), { variant: "error" });
@@ -47,8 +54,13 @@ export default function Products() {
   const getProducts = async () => {
     setLoading(true);
     try {
-      const { data } = await axios.get("api/products/get");
-      setProducts(data);
+      const { data } = await axios.post("api/products/get", {
+        page: page + 1,
+        searchTerm: searchTerm,
+      });
+
+      setProducts(data.products);
+      setCount(data.count);
       setLoading(false);
     } catch (error) {
       enqueueSnackbar(getError(error), { variant: "error" });
@@ -111,10 +123,28 @@ export default function Products() {
     setQrCodeOpen(false);
   };
 
+  const onPaginationChange = (e, page) => {
+    setPage(page - 1);
+  };
+
+  const search = () => {
+    setSearchTerm(searchField.current.value);
+    clearFormData();
+  };
+  const resetSearch = () => {
+    searchField.current.value = "";
+    setSearchTerm("");
+    clearFormData();
+  };
+
   useEffect(() => {
     getProducts();
     getSubCategories();
   }, []);
+
+  useEffect(() => {
+    getProducts();
+  }, [searchTerm, page]);
 
   return (
     <DisconnectedGuard>
@@ -237,6 +267,37 @@ export default function Products() {
             </form>
           </div>
           <XHr color={"var(--first-color)"} />
+          <div className={styles.pagination}>
+            <XPagination
+              page={page}
+              count={count}
+              onChange={onPaginationChange}
+            />
+            <div className={styles.searchField}>
+              <input
+                className="defaultInput"
+                placeholder="name..."
+                ref={searchField}
+              />
+              <div className={styles.buttons}>
+                <IconButton
+                  style={{
+                    color: "var(--first-color)",
+                    visibility: !!searchTerm ? "visible" : "hidden",
+                  }}
+                  onClick={resetSearch}
+                >
+                  <Clear />
+                </IconButton>
+                <IconButton
+                  style={{ color: "var(--first-color)" }}
+                  onClick={search}
+                >
+                  <Search />
+                </IconButton>
+              </div>
+            </div>
+          </div>
           <div className={styles.datagrid}>
             <table className="defaultTable">
               <thead>

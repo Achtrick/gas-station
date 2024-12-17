@@ -14,7 +14,7 @@ handler.post(async (req, res) => {
       res.status(200).json({
         email: email,
         token: jwt.sign({ token: email }, process.env.JWT_SECRET, {
-          expiresIn: "7d",
+          expiresIn: "365d",
         }),
       });
     } else {

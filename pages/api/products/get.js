@@ -5,13 +5,40 @@ import nc from "next-connect";
 
 const handler = nc();
 
-handler.get(auth, async (req, res) => {
+handler.post(auth, async (req, res) => {
+  const { searchTerm, page } = req.body;
+  const query = {};
+
+  const withPagination = page || searchTerm;
+
+  if (searchTerm && searchTerm !== "") {
+    var blocks = searchTerm.split(" ");
+    var terms = await blocks.map((b) => {
+      return { designation: { $regex: ".*" + b + ".*", $options: "i" } };
+    });
+    query.$or = terms;
+  }
+
   await connectDB();
   try {
-    const products = await Product.find({}).populate({
-      path: "subCategory",
-    });
-    res.status(200).json(products);
+    const products = await (withPagination
+      ? Product.find(query)
+          .populate({
+            path: "subCategory",
+          })
+          .sort({ createdAt: -1 })
+          .limit(process.env.DATA_PAGE_LIMIT)
+          .skip((page - 1) * process.env.DATA_PAGE_LIMIT)
+      : Product.find({}).populate({
+          path: "subCategory",
+        }));
+
+    const total = await Product.countDocuments(query);
+    const count = Math.ceil(total / process.env.DATA_PAGE_LIMIT);
+
+    res
+      .status(200)
+      .json(withPagination ? { products: products, count: count } : products);
   } catch (err) {
     res.status(400).json(err);
   }

@@ -5,11 +5,37 @@ import nc from "next-connect";
 
 const handler = nc();
 
-handler.get(auth, async (req, res) => {
+handler.post(auth, async (req, res) => {
+  const { searchTerm, page } = req.body;
+  const query = {};
+
+  const withPagination = page || searchTerm;
+
+  if (searchTerm && searchTerm !== "") {
+    var blocks = searchTerm.split(" ");
+    var terms = await blocks.map((b) => {
+      return { name: { $regex: ".*" + b + ".*", $options: "i" } };
+    });
+    query.$or = terms;
+  }
+
   await connectDB();
   try {
-    const categories = await Category.find({});
-    res.status(200).json(categories);
+    const categories = await (withPagination
+      ? Category.find(query)
+          .sort({ createdAt: -1 })
+          .limit(process.env.DATA_PAGE_LIMIT)
+          .skip((page - 1) * process.env.DATA_PAGE_LIMIT)
+      : Category.find({}));
+
+    const total = await Category.countDocuments(query);
+    const count = Math.ceil(total / process.env.DATA_PAGE_LIMIT);
+
+    res
+      .status(200)
+      .json(
+        withPagination ? { categories: categories, count: count } : categories
+      );
   } catch (err) {
     res.status(400).json(err);
   }

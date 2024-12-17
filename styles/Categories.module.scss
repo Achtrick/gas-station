@@ -1,5 +1,11 @@
 @import "./Arena.module.scss";
 
 .datagrid {
-  height: calc(100dvh - 180px);
+  height: calc(100dvh - 210px);
+}
+
+@media (max-width: 800px) {
+  .datagrid {
+    height: calc(100dvh - 250px);
+  }
 }
