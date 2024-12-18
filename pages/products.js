@@ -138,11 +138,7 @@ export default function Products() {
   };
 
   useEffect(() => {
-    getProducts();
-    getSubCategories();
-  }, []);
-
-  useEffect(() => {
+    !subCategories.length && getSubCategories();
     getProducts();
   }, [searchTerm, page]);
 
