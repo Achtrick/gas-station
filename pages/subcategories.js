@@ -119,11 +119,7 @@ export default function SubCategories() {
   };
 
   useEffect(() => {
-    getCategories();
-    getSubCategories();
-  }, []);
-
-  useEffect(() => {
+    !categories.length && getCategories();
     getSubCategories();
   }, [searchTerm, page]);
 
