@@ -105,10 +105,6 @@ export default function Categories() {
 
   useEffect(() => {
     getCategories();
-  }, []);
-
-  useEffect(() => {
-    getCategories();
   }, [searchTerm, page]);
 
   return (
