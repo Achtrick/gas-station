@@ -1,16 +1,19 @@
 import styles from "@/styles/Sidebar.module.scss";
 import { Close } from "@mui/icons-material";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import InventoryIcon from "@mui/icons-material/Inventory";
 import MenuIcon from "@mui/icons-material/Menu";
 import QueryStatsIcon from "@mui/icons-material/QueryStats";
+import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import WidgetsIcon from "@mui/icons-material/Widgets";
 import { Drawer, IconButton } from "@mui/material";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
+import XHr from "./ui-components/XHr";
 function Sidebar() {
   const router = useRouter();
   const dispatch = useDispatch();
@@ -59,6 +62,17 @@ function Sidebar() {
           >
             <InventoryIcon />
           </Link>
+          <XHr color="var(--second-color)" />
+          <p>
+            <IconButton>
+              <RemoveCircleOutlineIcon />
+            </IconButton>
+          </p>
+          <p>
+            <IconButton>
+              <AddCircleOutlineIcon />
+            </IconButton>
+          </p>
         </section>
         <IconButton style={{ color: "#000000" }} onClick={logout}>
           <ExitToAppIcon />

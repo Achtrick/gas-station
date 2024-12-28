@@ -23,6 +23,7 @@ function MyApp(props) {
             <CssBaseline />
             <LocalizationProvider dateAdapter={AdapterMoment}>
               <SnackbarProvider
+                autoHideDuration={1500}
                 anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
               >
                 <Component {...pageProps} />
