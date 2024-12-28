@@ -38,7 +38,7 @@ export default function Home() {
     <ConnectedGuard>
       <section className={styles["login-container"]}>
         <form id="form" onSubmit={login}>
-          <img src="/logo.jpg" />
+          <img src="/logo.webp" />
           <input
             required
             type="email"

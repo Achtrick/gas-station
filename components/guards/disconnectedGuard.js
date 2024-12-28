@@ -29,7 +29,7 @@ function DisconnectedGuard(props) {
           width="60px"
           style={{ opacity: "0.8" }}
           alt="gas-station"
-          src="/logo.jpg"
+          src="/logo.webp"
         />
         <CircularProgress
           size={100}

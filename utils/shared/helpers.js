@@ -17,8 +17,8 @@ export const compressImage = async (file) =>
   await new Promise((resolve) => {
     Resizer.imageFileResizer(
       file,
-      1000,
-      1000,
+      100,
+      100,
       "WEBP",
       100,
       0,

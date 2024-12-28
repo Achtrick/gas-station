@@ -7,6 +7,7 @@ import XHr from "@/components/ui-components/XHr";
 import XPagination from "@/components/ui-components/XPagination";
 import styles from "@/styles/Products.module.scss";
 import { getError } from "@/utils/shared/getError";
+import { compressImage } from "@/utils/shared/helpers";
 import { Clear, Inventory, QrCode, Search } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
 import axios from "axios";
@@ -211,6 +212,30 @@ export default function Products() {
                 value={formData.qty}
                 onChange={onChange}
               />
+              <input
+                id="image-input"
+                type="file"
+                className="defaultInput"
+                hidden
+                accept="image/*"
+                onChange={async (e) => {
+                  e.target.files[0] &&
+                    setFormData({
+                      ...formData,
+                      image: await compressImage(e.target.files[0]),
+                    });
+                }}
+              />
+              <label htmlFor="image-input">
+                <img
+                  src={
+                    formData.image.length > 0
+                      ? formData.image
+                      : "/image-thumbnail.jpg"
+                  }
+                  alt={formData.name}
+                />
+              </label>
               <button
                 ref={submitButton}
                 type="submit"
