@@ -131,6 +131,8 @@ export default function SubCategories() {
           loading: loading,
           open: modalOpen,
           title: "delete sub-category",
+          content:
+            "if you delete the sub-category, all products under it will be deleted !",
           confirmAction: remove,
           cancelAction: () => setModalOpen(false),
           onClose: () => setModalOpen(false),
