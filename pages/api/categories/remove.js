@@ -20,7 +20,7 @@ handler.post(auth, async (req, res) => {
 
     subCategories.forEach(async (subcategory) => {
       await Product.deleteMany({
-        subcategory: Types.ObjectId(subcategory._id),
+        subCategory: Types.ObjectId(subcategory._id),
       });
     });
 
