@@ -28,6 +28,7 @@ function XQrCode({ closeAction, onSuccess }) {
         },
         async (qrCode) => {
           onSuccess(qrCode);
+          isFlashlightOn && toggleFlashlight();
           html5QrCode.stop();
         }
       );
