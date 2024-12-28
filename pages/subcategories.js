@@ -2,6 +2,7 @@ import DisconnectedGuard from "@/components/guards/disconnectedGuard";
 import Layout from "@/components/Layout";
 import { ModalSizes } from "@/components/ui-components/ModalSizes";
 import XActionMenu from "@/components/ui-components/XActionMenu";
+import XAutoComplete from "@/components/ui-components/XAutoComplete";
 import XHr from "@/components/ui-components/XHr";
 import XPagination from "@/components/ui-components/XPagination";
 import styles from "@/styles/Scategories.module.scss";
@@ -64,9 +65,6 @@ export default function SubCategories() {
   };
 
   const clearFormData = async () => {
-    document
-      .getElementsByClassName("MuiAutocomplete-clearIndicator")[0]
-      ?.click();
     setFormData({ _id: null, name: "", category: "" });
   };
 
@@ -112,6 +110,7 @@ export default function SubCategories() {
     setSearchTerm(searchField.current.value);
     clearFormData();
   };
+
   const resetSearch = () => {
     searchField.current.value = "";
     setSearchTerm("");
@@ -146,20 +145,17 @@ export default function SubCategories() {
           <div className={styles.dataform}>
             <form onSubmit={save}>
               <WidgetsIcon style={{ width: "60px", height: "60px" }} />
-              <select
-                required
-                className="defaultSelect"
-                name="category"
+              <XAutoComplete
                 value={formData.category}
-                onChange={onChange}
-              >
-                <option value="">Select a category</option>
-                {categories.map((category) => (
-                  <option key={category._id} value={category._id}>
-                    {category.name}
-                  </option>
-                ))}
-              </select>
+                options={categories}
+                formData={formData}
+                setFormData={setFormData}
+                optionDisplayExpr="name"
+                optionValueExpr="_id"
+                attributeKey={"category"}
+                placeholder="Category"
+                required={true}
+              />
               <input
                 required
                 type="text"

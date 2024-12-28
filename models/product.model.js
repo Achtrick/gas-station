@@ -5,8 +5,6 @@ const productSchema = new Schema(
     designation: { type: String, default: "" },
     code: { type: String, default: "", unique: true },
     image: { type: String, default: "" },
-    buyingPrice: { type: Number, default: 0 },
-    sellingPrice: { type: Number, default: 0 },
     qty: { type: Number, default: 0 },
     subCategory: { type: Schema.Types.ObjectId, ref: "SubCategory" },
   },

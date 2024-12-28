@@ -43,7 +43,7 @@
   .datagrid {
     width: 100%;
     overflow-y: scroll;
-    border-bottom: 1px solid #ccc;
+    border: 1px solid #ccc;
   }
   svg {
     color: var(--first-color);
@@ -63,7 +63,7 @@
 @media (max-width: 800px) {
   .container {
     .datagrid {
-      border-bottom: 1px solid transparent;
+      border: none;
     }
   }
   .container {

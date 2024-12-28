@@ -1,7 +1,7 @@
 @import "./Arena.module.scss";
 
 .datagrid {
-  height: calc(100dvh - 470px);
+  height: calc(100dvh - 355px);
 }
 .qrcode {
   width: 100%;
@@ -16,6 +16,6 @@
 
 @media (max-width: 800px) {
   .datagrid {
-    height: calc(100dvh - 510px);
+    height: calc(100dvh - 400px);
   }
 }

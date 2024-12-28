@@ -1,6 +1,5 @@
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
-import React from "react";
 
 const XAutoComplete = ({
   formData,
@@ -21,7 +20,7 @@ const XAutoComplete = ({
         width: "100%",
         margin: "5px 0px",
       }}
-      value={options.find((option) => option[optionValueExpr] === value)}
+      value={options.find((option) => option[optionValueExpr] === value) ?? ""}
       options={options}
       getOptionLabel={(options) => options[optionDisplayExpr] || ""}
       onChange={

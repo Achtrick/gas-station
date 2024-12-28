@@ -231,6 +231,9 @@ th {
 }
 
 @media (max-width: 800px) {
+  ::-webkit-scrollbar {
+    display: none;
+  }
   .defaultTable {
     border: none;
   }

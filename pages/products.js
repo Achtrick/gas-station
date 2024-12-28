@@ -2,6 +2,7 @@ import DisconnectedGuard from "@/components/guards/disconnectedGuard";
 import Layout from "@/components/Layout";
 import { ModalSizes } from "@/components/ui-components/ModalSizes";
 import XActionMenu from "@/components/ui-components/XActionMenu";
+import XAutoComplete from "@/components/ui-components/XAutoComplete";
 import XHr from "@/components/ui-components/XHr";
 import XPagination from "@/components/ui-components/XPagination";
 import styles from "@/styles/Products.module.scss";
@@ -28,9 +29,7 @@ export default function Products() {
     designation: "",
     code: "",
     image: "",
-    buyingPrice: 0,
-    sellingPrice: 0,
-    qty: 0,
+    qty: "",
     subCategory: "",
   });
 
@@ -69,17 +68,12 @@ export default function Products() {
   };
 
   const clearFormData = async () => {
-    document
-      .getElementsByClassName("MuiAutocomplete-clearIndicator")[0]
-      ?.click();
     setFormData({
       _id: null,
       designation: "",
       code: "",
       image: "",
-      buyingPrice: 0,
-      sellingPrice: 0,
-      qty: 0,
+      qty: "",
       subCategory: "",
     });
   };
@@ -170,20 +164,17 @@ export default function Products() {
           <div className={styles.dataform}>
             <form onSubmit={save}>
               <Inventory style={{ width: "60px", height: "60px" }} />
-              <select
-                required
-                className="defaultSelect"
-                name="subCategory"
+              <XAutoComplete
                 value={formData.subCategory}
-                onChange={onChange}
-              >
-                <option value="">Select a sub-category</option>
-                {subCategories.map((subCategory) => (
-                  <option key={subCategory._id} value={subCategory._id}>
-                    {subCategory.name}
-                  </option>
-                ))}
-              </select>
+                options={subCategories}
+                formData={formData}
+                setFormData={setFormData}
+                optionDisplayExpr="name"
+                optionValueExpr="_id"
+                attributeKey={"subCategory"}
+                placeholder="Sub-Category"
+                required={true}
+              />
               <input
                 required
                 type="text"
@@ -211,50 +202,15 @@ export default function Products() {
                   <QrCode />
                 </IconButton>
               </div>
-              <div className={styles.row}>
-                <div
-                  className="labeledInput"
-                  style={{ width: "calc(50% - 5px)" }}
-                >
-                  <label>buying price</label>
-                  <input
-                    required
-                    type="number"
-                    name="buyingPrice"
-                    placeholder="buyingPrice"
-                    className="defaultInput"
-                    value={formData.buyingPrice}
-                    onChange={onChange}
-                  />
-                </div>
-                <div
-                  className="labeledInput"
-                  style={{ width: "calc(50% - 5px)" }}
-                >
-                  <label>selling price</label>
-                  <input
-                    required
-                    type="number"
-                    name="sellingPrice"
-                    placeholder="sellingPrice"
-                    className="defaultInput"
-                    value={formData.sellingPrice}
-                    onChange={onChange}
-                  />
-                </div>
-              </div>
-              <div className="labeledInput">
-                <label>qty</label>
-                <input
-                  required
-                  type="number"
-                  name="qty"
-                  placeholder="qty"
-                  className="defaultInput"
-                  value={formData.qty}
-                  onChange={onChange}
-                />
-              </div>
+              <input
+                required
+                type="number"
+                name="qty"
+                placeholder="qty"
+                className="defaultInput"
+                value={formData.qty}
+                onChange={onChange}
+              />
               <button
                 ref={submitButton}
                 type="submit"
@@ -300,8 +256,6 @@ export default function Products() {
                 <tr>
                   <th>designation</th>
                   <th>sub-category</th>
-                  <th>buying price</th>
-                  <th>selling price</th>
                   <th>qty</th>
                 </tr>
               </thead>
@@ -329,8 +283,6 @@ export default function Products() {
                       <td data-label="Sub Category">
                         {product.subCategory.name}
                       </td>
-                      <td data-label="Buying Price">{product.buyingPrice}</td>
-                      <td data-label="Selling Price">{product.sellingPrice}</td>
                       <td data-label="Qty">{product.qty}</td>
                     </tr>
                   );

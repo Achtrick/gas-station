@@ -1,4 +1,3 @@
-import crypto from "crypto";
 import Resizer from "react-image-file-resizer";
 
 export function isColorDark(color) {
@@ -14,11 +13,7 @@ export function deduceColor(color) {
   return isColorDark(color) ? "white" : "black";
 }
 
-export function calculateDiscount(price, discount) {
-  return price - (price * discount) / 100;
-}
-
-export const getThumbnail = async (file) =>
+export const compressImage = async (file) =>
   await new Promise((resolve) => {
     Resizer.imageFileResizer(
       file,
@@ -33,14 +28,3 @@ export const getThumbnail = async (file) =>
       "base64"
     );
   });
-
-export const isBase64 = (image) => {
-  return image.includes("data:image/webp;base64,");
-};
-
-export const generateId = (text) => {
-  const hash = crypto.createHash("sha256");
-  hash.update(text);
-  const hashHex = hash.digest("hex");
-  return hashHex.slice(0, 24);
-};
