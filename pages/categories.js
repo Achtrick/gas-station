@@ -184,26 +184,17 @@ export default function Categories() {
             <table className="defaultTable">
               <thead>
                 <tr>
-                  <th>designation</th>
-                  <th>sub-category</th>
-                  <th>buying price</th>
-                  <th>selling price</th>
-                  <th>qty</th>
+                  <th>name</th>
                 </tr>
               </thead>
               <tbody>
-                {products.map((product) => {
+                {categories.map((category) => {
                   return (
                     <tr
-                      key={product._id}
-                      onClick={() =>
-                        setFormData({
-                          ...product,
-                          subCategory: product.subCategory._id,
-                        })
-                      }
+                      key={category._id}
+                      onClick={() => setFormData(category)}
                       style={
-                        product._id === formData._id
+                        category._id === formData._id
                           ? {
                               backgroundColor: "var(--first-color)",
                               color: "white",
@@ -211,13 +202,7 @@ export default function Categories() {
                           : null
                       }
                     >
-                      <td data-label="Designation">{product.designation}</td>
-                      <td data-label="Sub Category">
-                        {product.subCategory.name}
-                      </td>
-                      <td data-label="Buying Price">{product.buyingPrice}</td>
-                      <td data-label="Selling Price">{product.sellingPrice}</td>
-                      <td data-label="Qty">{product.qty}</td>
+                      <td data-label="Name">{category.name}</td>
                     </tr>
                   );
                 })}
