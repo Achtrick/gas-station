@@ -40,6 +40,7 @@ function XQrCode({ closeAction, onSuccess }) {
             await html5QrCode.setTorchState(false);
           }
           onSuccess(qrCode);
+          isFlashlightOn && toggleFlashlight();
           html5QrCode.stop();
         },
         async () => {
