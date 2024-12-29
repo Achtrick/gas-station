@@ -4,21 +4,20 @@ import { IconButton } from "@mui/material";
 import { Html5Qrcode } from "html5-qrcode";
 import { useEffect, useState } from "react";
 function XQrCode({ closeAction, onSuccess }) {
-  const [cameraId, setCameraId] = useState("");
+  const [ready, setReady] = useState(false);
   const [isFlashlightOn, setIsFlashlightOn] = useState(false);
 
   var html5QrCode;
 
   useEffect(() => {
-    Html5Qrcode.getCameras().then((devices) => {
-      if (devices && devices.length) {
-        setCameraId(devices[devices.length - 1].id);
-      }
-    });
+    const reader = document.getElementById("reader");
+    if (reader) {
+      setReady(true);
+    }
   }, []);
 
   useEffect(() => {
-    if (!!cameraId) {
+    if (ready) {
       html5QrCode = new Html5Qrcode("reader");
       html5QrCode.start(
         { facingMode: "environment" },
@@ -32,7 +31,7 @@ function XQrCode({ closeAction, onSuccess }) {
         }
       );
     }
-  }, [cameraId]);
+  }, [ready]);
 
   const toggleFlashlight = async () => {
     try {
@@ -57,7 +56,7 @@ function XQrCode({ closeAction, onSuccess }) {
         <div id="reader" className={styles.reader}></div>
       </div>
       <div className={styles.actions}>
-        {!!cameraId ? (
+        {ready ? (
           <>
             <IconButton
               onClick={() => {
