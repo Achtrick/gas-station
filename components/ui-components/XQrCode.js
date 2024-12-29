@@ -19,12 +19,17 @@ function XQrCode({ closeAction, onSuccess }) {
   useEffect(() => {
     if (ready) {
       html5QrCode = new Html5Qrcode("reader");
+      let config = {
+        fps: 60,
+        qrbox: { width: 250, height: 250 },
+      };
+      if (html5QrCode.getRunningTrackCapabilities().torch) {
+        config.advanced = [{ torch: true }];
+      }
+
       html5QrCode.start(
         { facingMode: "environment" },
-        {
-          fps: 60,
-          qrbox: { width: 250, height: 250 },
-        },
+        config,
         async (qrCode) => {
           onSuccess(qrCode);
           html5QrCode.stop();
