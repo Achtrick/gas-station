@@ -5,15 +5,12 @@ import { Html5Qrcode } from "html5-qrcode";
 import { useEffect, useState } from "react";
 function XQrCode({ closeAction, onSuccess }) {
   const [ready, setReady] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
+  const [stream, setStream] = useState(null);
   const [isFlashlightOn, setIsFlashlightOn] = useState(false);
 
   var html5QrCode;
 
   useEffect(() => {
-    const userAgent = navigator.userAgent || navigator.vendor || window.opera;
-    setIsMobile(/Mobi|Android|iPhone/i.test(userAgent));
-
     const reader = document.getElementById("reader");
     if (reader) {
       setReady(true);
@@ -23,17 +20,12 @@ function XQrCode({ closeAction, onSuccess }) {
   useEffect(() => {
     if (ready) {
       html5QrCode = new Html5Qrcode("reader");
-      let config = {
-        fps: 60,
-        qrbox: { width: 250, height: 250 },
-      };
-      if (isMobile) {
-        config.advanced = [{ torch: true }];
-      }
-
       html5QrCode.start(
         { facingMode: "environment" },
-        config,
+        {
+          fps: 60,
+          qrbox: { width: 250, height: 250 },
+        },
         async (qrCode) => {
           onSuccess(qrCode);
           html5QrCode.stop();
@@ -44,17 +36,33 @@ function XQrCode({ closeAction, onSuccess }) {
 
   const toggleFlashlight = async () => {
     try {
-      const capabilities = await html5QrCode.getRunningTrackCapabilities();
-      if (capabilities.torch) {
-        setIsFlashlightOn(!isFlashlightOn);
-        await html5QrCode.applyVideoConstraints({
-          fps: 60,
-          qrbox: { width: 250, height: 250 },
-          advanced: [{ torch: isFlashlightOn }],
+      if (!stream) {
+        const mediaStream = await navigator.mediaDevices.getUserMedia({
+          video: { facingMode: "environment" },
         });
+        setStream(mediaStream);
+        const track = mediaStream.getVideoTracks()[0];
+        const capabilities = track.getCapabilities();
+
+        if (capabilities.torch) {
+          await track.applyConstraints({ advanced: [{ torch: true }] });
+          setIsFlashlightOn(true);
+        } else {
+          track.stop();
+          setStream(null);
+          alert("Flashlight is not supported on this device.");
+        }
+      } else {
+        const track = stream.getVideoTracks()[0];
+        await track.applyConstraints({ advanced: [{ torch: false }] });
+        track.stop();
+        setStream(null);
+        setIsFlashlightOn(false);
       }
     } catch (err) {
-      console.warn(err);
+      alert(
+        "Failed to toggle flashlight. Make sure you're using a supported device."
+      );
     }
   };
 
