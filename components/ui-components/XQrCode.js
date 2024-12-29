@@ -5,11 +5,15 @@ import { Html5Qrcode } from "html5-qrcode";
 import { useEffect, useState } from "react";
 function XQrCode({ closeAction, onSuccess }) {
   const [ready, setReady] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const [isFlashlightOn, setIsFlashlightOn] = useState(false);
 
   var html5QrCode;
 
   useEffect(() => {
+    const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+    setIsMobile(/Mobi|Android|iPhone/i.test(userAgent));
+
     const reader = document.getElementById("reader");
     if (reader) {
       setReady(true);
@@ -23,7 +27,7 @@ function XQrCode({ closeAction, onSuccess }) {
         fps: 60,
         qrbox: { width: 250, height: 250 },
       };
-      if (html5QrCode.getRunningTrackCapabilities().torch) {
+      if (isMobile) {
         config.advanced = [{ torch: true }];
       }
 
