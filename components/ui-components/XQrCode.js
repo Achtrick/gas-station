@@ -21,7 +21,9 @@ function XQrCode({ closeAction, onSuccess }) {
       if (isFlashlightOn) {
         await toggleFlashlight();
       }
-      html5QrCode?.stop();
+      setTimeout(() => {
+        html5QrCode?.stop();
+      }, 500);
     };
   }, []);
 
@@ -35,9 +37,13 @@ function XQrCode({ closeAction, onSuccess }) {
           qrbox: { width: 250, height: 250 },
         },
         async (qrCode) => {
-          isFlashlightOn && (await toggleFlashlight());
-          html5QrCode.stop();
-          onSuccess(qrCode);
+          if (isFlashlightOn) {
+            await toggleFlashlight();
+          }
+          setTimeout(() => {
+            html5QrCode?.stop();
+            onSuccess(qrCode);
+          }, 500);
         }
       );
     }
@@ -79,7 +85,6 @@ function XQrCode({ closeAction, onSuccess }) {
   return (
     <div className={styles.container}>
       <div className={styles.videoContainer}>
-        <div className={styles.overlay}></div>
         <div id="reader" className={styles.reader}></div>
       </div>
       <div className={styles.actions}>
