@@ -20,32 +20,31 @@ function XQrCode({ closeAction, onSuccess }) {
     return async () => {
       if (isFlashlightOn) {
         await toggleFlashlight();
-      }
-      setTimeout(() => {
         html5QrCode?.stop();
-      }, 500);
+      }
     };
   }, []);
 
   useEffect(() => {
     if (!!cameraId) {
       html5QrCode = new Html5Qrcode("reader");
-      html5QrCode.start(
-        { facingMode: "environment" },
-        {
-          fps: 60,
-          qrbox: { width: 250, height: 250 },
-        },
-        async (qrCode) => {
+      html5QrCode
+        .start(
+          { facingMode: "environment" },
+          {
+            fps: 60,
+            qrbox: { width: 250, height: 250 },
+          },
+          (qrCode) => {
+            onSuccess(qrCode);
+          }
+        )
+        .then(async () => {
           if (isFlashlightOn) {
             await toggleFlashlight();
           }
-          setTimeout(() => {
-            html5QrCode?.stop();
-            onSuccess(qrCode);
-          }, 500);
-        }
-      );
+          html5QrCode?.stop();
+        });
     }
   }, [cameraId]);
 
