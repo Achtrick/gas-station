@@ -25,7 +25,6 @@ function XQrCode({ closeAction, onSuccess }) {
         {
           fps: 60,
           qrbox: { width: 250, height: 250 },
-          videoConstraints: { advanced: [{ torch: true }] },
         },
         async (qrCode) => {
           onSuccess(qrCode);
@@ -36,7 +35,19 @@ function XQrCode({ closeAction, onSuccess }) {
   }, [cameraId]);
 
   const toggleFlashlight = async () => {
-    await html5QrCode.applyVideoConstraints({ advanced: [{ torch: false }] });
+    try {
+      const capabilities = await html5QrCode.getRunningTrackCapabilities();
+      if (capabilities.torch) {
+        setIsFlashlightOn(!isFlashlightOn);
+        await html5QrCode.applyVideoConstraints({
+          fps: 60,
+          qrbox: { width: 250, height: 250 },
+          advanced: [{ torch: isFlashlightOn }],
+        });
+      }
+    } catch (err) {
+      console.warn(err);
+    }
   };
 
   return (
@@ -46,23 +57,27 @@ function XQrCode({ closeAction, onSuccess }) {
         <div id="reader" className={styles.reader}></div>
       </div>
       <div className={styles.actions}>
-        <IconButton
-          onClick={() => {
-            html5QrCode?.stop();
-            closeAction();
-          }}
-          color="black"
-        >
-          <Close />
-        </IconButton>
-        <IconButton
-          onClick={() => {
-            toggleFlashlight();
-          }}
-          style={{ color: isFlashlightOn ? "orange" : "black" }}
-        >
-          <Light />
-        </IconButton>
+        {!!cameraId ? (
+          <>
+            <IconButton
+              onClick={() => {
+                html5QrCode.stop();
+                closeAction();
+              }}
+              color="black"
+            >
+              <Close />
+            </IconButton>
+            <IconButton
+              onClick={() => {
+                toggleFlashlight();
+              }}
+              style={{ color: isFlashlightOn ? "orange" : "black" }}
+            >
+              <Light />
+            </IconButton>
+          </>
+        ) : null}
       </div>
     </div>
   );
