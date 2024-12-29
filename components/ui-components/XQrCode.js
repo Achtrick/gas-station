@@ -10,16 +10,16 @@ function XQrCode({ closeAction, onSuccess }) {
 
   var html5QrCode;
 
-  useEffect(() => {
+  useEffect(async () => {
     Html5Qrcode.getCameras().then((devices) => {
       if (devices && devices.length) {
         setCameraId(devices[devices.length - 1].id);
       }
     });
 
-    return () => {
+    return async () => {
       if (isFlashlightOn) {
-        toggleFlashlight();
+        await toggleFlashlight();
       }
       html5QrCode?.stop();
     };
@@ -35,19 +35,9 @@ function XQrCode({ closeAction, onSuccess }) {
           qrbox: { width: 250, height: 250 },
         },
         async (qrCode) => {
-          await html5QrCode.getRunningTrackCapabilities();
-          if (html5QrCode.setTorchState) {
-            await html5QrCode.setTorchState(false);
-          }
-          onSuccess(qrCode);
-          isFlashlightOn && toggleFlashlight();
+          isFlashlightOn && (await toggleFlashlight());
           html5QrCode.stop();
-        },
-        async () => {
-          await html5QrCode.getRunningTrackCapabilities();
-          if (html5QrCode.setTorchState) {
-            await html5QrCode.setTorchState(true);
-          }
+          onSuccess(qrCode);
         }
       );
     }
