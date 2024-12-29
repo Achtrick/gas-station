@@ -10,7 +10,7 @@ function XQrCode({ closeAction, onSuccess }) {
 
   var html5QrCode;
 
-  useEffect(async () => {
+  useEffect(() => {
     Html5Qrcode.getCameras().then((devices) => {
       if (devices && devices.length) {
         setCameraId(devices[devices.length - 1].id);
