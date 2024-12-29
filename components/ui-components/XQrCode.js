@@ -4,21 +4,22 @@ import { IconButton } from "@mui/material";
 import { Html5Qrcode } from "html5-qrcode";
 import { useEffect, useState } from "react";
 function XQrCode({ closeAction, onSuccess }) {
-  const [ready, setReady] = useState(false);
+  const [cameraId, setCameraId] = useState("");
   const [stream, setStream] = useState(null);
   const [isFlashlightOn, setIsFlashlightOn] = useState(false);
 
   var html5QrCode;
 
   useEffect(() => {
-    const reader = document.getElementById("reader");
-    if (reader) {
-      setReady(true);
-    }
+    Html5Qrcode.getCameras().then((devices) => {
+      if (devices && devices.length) {
+        setCameraId(devices[devices.length - 1].id);
+      }
+    });
   }, []);
 
   useEffect(() => {
-    if (ready) {
+    if (!!cameraId) {
       html5QrCode = new Html5Qrcode("reader");
       html5QrCode.start(
         { facingMode: "environment" },
@@ -27,21 +28,33 @@ function XQrCode({ closeAction, onSuccess }) {
           qrbox: { width: 250, height: 250 },
         },
         async (qrCode) => {
+          await html5QrCode.getRunningTrackCapabilities();
+          if (html5QrCode.setTorchState) {
+            await html5QrCode.setTorchState(false);
+          }
           onSuccess(qrCode);
           isFlashlightOn && toggleFlashlight();
           html5QrCode.stop();
+        },
+        async () => {
+          await html5QrCode.getRunningTrackCapabilities();
+          if (html5QrCode.setTorchState) {
+            await html5QrCode.setTorchState(true);
+          }
         }
       );
     }
-  }, [ready]);
+  }, [cameraId]);
 
   const toggleFlashlight = async () => {
     try {
       if (!stream) {
+        // Start accessing the camera
         const mediaStream = await navigator.mediaDevices.getUserMedia({
-          video: { facingMode: "environment" },
+          video: { facingMode: "environment" }, // Use the rear camera
         });
         setStream(mediaStream);
+
         const track = mediaStream.getVideoTracks()[0];
         const capabilities = track.getCapabilities();
 
@@ -49,14 +62,15 @@ function XQrCode({ closeAction, onSuccess }) {
           await track.applyConstraints({ advanced: [{ torch: true }] });
           setIsFlashlightOn(true);
         } else {
-          track.stop();
+          track.stop(); // Stop the camera
           setStream(null);
           alert("Flashlight is not supported on this device.");
         }
       } else {
+        // Turn off the flashlight
         const track = stream.getVideoTracks()[0];
         await track.applyConstraints({ advanced: [{ torch: false }] });
-        track.stop();
+        track.stop(); // Stop the camera
         setStream(null);
         setIsFlashlightOn(false);
       }
@@ -70,31 +84,26 @@ function XQrCode({ closeAction, onSuccess }) {
   return (
     <div className={styles.container}>
       <div className={styles.videoContainer}>
-        <div className={styles.overlay}></div>
         <div id="reader" className={styles.reader}></div>
       </div>
       <div className={styles.actions}>
-        {ready ? (
-          <>
-            <IconButton
-              onClick={() => {
-                html5QrCode.stop();
-                closeAction();
-              }}
-              color="black"
-            >
-              <Close />
-            </IconButton>
-            <IconButton
-              onClick={() => {
-                toggleFlashlight();
-              }}
-              style={{ color: isFlashlightOn ? "orange" : "black" }}
-            >
-              <Light />
-            </IconButton>
-          </>
-        ) : null}
+        <IconButton
+          onClick={() => {
+            html5QrCode?.stop();
+            closeAction();
+          }}
+          color="black"
+        >
+          <Close />
+        </IconButton>
+        <IconButton
+          onClick={() => {
+            toggleFlashlight();
+          }}
+          style={{ color: isFlashlightOn ? "orange" : "black" }}
+        >
+          <Light />
+        </IconButton>
       </div>
     </div>
   );
