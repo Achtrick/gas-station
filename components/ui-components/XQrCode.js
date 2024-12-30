@@ -4,23 +4,39 @@ import { IconButton } from "@mui/material";
 import { Html5Qrcode } from "html5-qrcode";
 import { useEffect, useState } from "react";
 function XQrCode({ closeAction, onSuccess }) {
-  const [cameraId, setCameraId] = useState("");
-  const [stream, setStream] = useState(null);
+  const [ready, setReady] = useState(false);
+  const [track, setTrack] = useState(null);
+  const [hasFlashLight, setHasFlashLight] = useState(false);
   const [isFlashlightOn, setIsFlashlightOn] = useState(false);
 
   var html5QrCode;
 
   useEffect(() => {
+    navigator.mediaDevices
+      .getUserMedia({
+        video: { facingMode: "environment" },
+      })
+      .then((mediaStream) => {
+        const mediaTrack = mediaStream.getVideoTracks()[0];
+        setTrack(mediaTrack);
+        if (mediaTrack.getCapabilities().torch) {
+          setHasFlashLight(true);
+        } else {
+          mediaTrack.stop();
+        }
+      });
+
     Html5Qrcode.getCameras().then((devices) => {
-      if (devices && devices.length) {
-        setCameraId(devices[devices.length - 1].id);
+      if (devices) {
+        setReady(true);
       }
     });
   }, []);
 
   useEffect(() => {
-    if (!!cameraId) {
+    if (ready) {
       html5QrCode = new Html5Qrcode("reader");
+
       html5QrCode.start(
         { facingMode: "environment" },
         {
@@ -29,50 +45,19 @@ function XQrCode({ closeAction, onSuccess }) {
         },
         async (qrCode) => {
           if (isFlashlightOn) {
-            await toggleFlashlight();
+            await setFlashlightState(false);
+            track.stop();
           }
           html5QrCode.stop();
           onSuccess(qrCode);
         }
       );
     }
-  }, [cameraId]);
+  }, [ready]);
 
-  const toggleFlashlight = async () => {
-    try {
-      if (!stream) {
-        const mediaStream = await navigator.mediaDevices.getUserMedia({
-          video: { facingMode: "environment" },
-        });
-        setStream(mediaStream);
-
-        const track = mediaStream.getVideoTracks()[0];
-        const capabilities = track.getCapabilities();
-
-        if (capabilities.torch) {
-          await track.applyConstraints({ advanced: [{ torch: true }] });
-          setIsFlashlightOn(true);
-          return;
-        } else {
-          track.stop();
-          setStream(null);
-          alert("Flashlight is not supported on this device.");
-          return;
-        }
-      } else {
-        const track = stream.getVideoTracks()[0];
-        await track.applyConstraints({ advanced: [{ torch: false }] });
-        track.stop();
-        setStream(null);
-        setIsFlashlightOn(false);
-        return;
-      }
-    } catch (err) {
-      alert(
-        "Failed to toggle flashlight. Make sure you're using a supported device."
-      );
-      return;
-    }
+  const setFlashlightState = async (state) => {
+    await track.applyConstraints({ advanced: [{ torch: state }] });
+    setIsFlashlightOn(state);
   };
 
   return (
@@ -84,7 +69,8 @@ function XQrCode({ closeAction, onSuccess }) {
         <IconButton
           onClick={async () => {
             if (isFlashlightOn) {
-              await toggleFlashlight();
+              await setFlashlightState(false);
+              track.stop();
             }
             html5QrCode.stop();
             closeAction();
@@ -93,14 +79,16 @@ function XQrCode({ closeAction, onSuccess }) {
         >
           <Close />
         </IconButton>
-        <IconButton
-          onClick={async () => {
-            await toggleFlashlight();
-          }}
-          style={{ color: isFlashlightOn ? "orange" : "black" }}
-        >
-          <Light />
-        </IconButton>
+        {hasFlashLight ? (
+          <IconButton
+            onClick={async () => {
+              await setFlashlightState(!isFlashlightOn);
+            }}
+            style={{ color: isFlashlightOn ? "orange" : "black" }}
+          >
+            <Light />
+          </IconButton>
+        ) : null}
       </div>
     </div>
   );
