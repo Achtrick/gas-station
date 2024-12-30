@@ -2,12 +2,11 @@ import styles from "@/styles/components/XQrCode.module.scss";
 import { Close, Light } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
 import { Html5Qrcode } from "html5-qrcode";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 function XQrCode({ closeAction, onSuccess }) {
   const [cameraId, setCameraId] = useState("");
   const [stream, setStream] = useState(null);
   const [isFlashlightOn, setIsFlashlightOn] = useState(false);
-  const flashLightButton = useRef();
 
   var html5QrCode;
 
@@ -29,13 +28,11 @@ function XQrCode({ closeAction, onSuccess }) {
           qrbox: { width: 250, height: 250 },
         },
         async (qrCode) => {
-          onSuccess(qrCode);
           if (isFlashlightOn) {
-            flashLightButton.current.click();
+            await toggleFlashlight();
           }
-          setTimeout(() => {
-            html5QrCode.stop();
-          }, 1000);
+          html5QrCode.stop();
+          onSuccess(qrCode);
         }
       );
     }
@@ -81,23 +78,20 @@ function XQrCode({ closeAction, onSuccess }) {
       </div>
       <div className={styles.actions}>
         <IconButton
-          onClick={() => {
+          onClick={async () => {
             if (isFlashlightOn) {
-              toggleFlashlight();
+              await toggleFlashlight();
             }
-            setTimeout(() => {
-              html5QrCode.stop();
-              closeAction();
-            }, 1000);
+            html5QrCode.stop();
+            closeAction();
           }}
           color="black"
         >
           <Close />
         </IconButton>
         <IconButton
-          ref={flashLightButton}
-          onClick={() => {
-            toggleFlashlight();
+          onClick={async () => {
+            await toggleFlashlight();
           }}
           style={{ color: isFlashlightOn ? "orange" : "black" }}
         >
