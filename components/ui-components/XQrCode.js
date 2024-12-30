@@ -52,10 +52,12 @@ function XQrCode({ closeAction, onSuccess }) {
         if (capabilities.torch) {
           await track.applyConstraints({ advanced: [{ torch: true }] });
           setIsFlashlightOn(true);
+          return;
         } else {
           track.stop();
           setStream(null);
           alert("Flashlight is not supported on this device.");
+          return;
         }
       } else {
         const track = stream.getVideoTracks()[0];
@@ -63,11 +65,13 @@ function XQrCode({ closeAction, onSuccess }) {
         track.stop();
         setStream(null);
         setIsFlashlightOn(false);
+        return;
       }
     } catch (err) {
       alert(
         "Failed to toggle flashlight. Make sure you're using a supported device."
       );
+      return;
     }
   };
 
