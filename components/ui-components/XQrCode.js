@@ -21,9 +21,8 @@ function XQrCode({ closeAction, onSuccess }) {
         setTrack(mediaTrack);
         if (mediaTrack.getCapabilities().torch) {
           setHasFlashLight(true);
-        } else {
-          mediaTrack.stop();
         }
+        mediaTrack.stop();
       });
 
     Html5Qrcode.getCameras().then((devices) => {
