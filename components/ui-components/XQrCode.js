@@ -33,7 +33,9 @@ function XQrCode({ closeAction, onSuccess }) {
           if (isFlashlightOn) {
             flashLightButton.current.click();
           }
-          html5QrCode.stop();
+          setTimeout(() => {
+            html5QrCode.stop();
+          }, 1000);
         }
       );
     }
@@ -80,8 +82,13 @@ function XQrCode({ closeAction, onSuccess }) {
       <div className={styles.actions}>
         <IconButton
           onClick={() => {
-            html5QrCode?.stop();
-            closeAction();
+            if (isFlashlightOn) {
+              toggleFlashlight();
+            }
+            setTimeout(() => {
+              html5QrCode.stop();
+              closeAction();
+            }, 1000);
           }}
           color="black"
         >
