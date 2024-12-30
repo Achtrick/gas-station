@@ -20,7 +20,6 @@ function XQrCode({ closeAction, onSuccess }) {
         if (track.getCapabilities().torch) {
           setHasFlashLight(true);
         }
-        track.stop();
       });
 
     Html5Qrcode.getCameras().then((devices) => {
