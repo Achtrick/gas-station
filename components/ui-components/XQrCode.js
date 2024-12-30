@@ -11,17 +11,6 @@ function XQrCode({ closeAction, onSuccess }) {
   var html5QrCode;
 
   useEffect(() => {
-    navigator.mediaDevices
-      .getUserMedia({
-        video: { facingMode: "environment" },
-      })
-      .then((mediaStream) => {
-        const track = mediaStream.getVideoTracks()[0];
-        if (track.getCapabilities().torch) {
-          setHasFlashLight(true);
-        }
-      });
-
     Html5Qrcode.getCameras().then((devices) => {
       if (devices) {
         setReady(true);
@@ -39,17 +28,10 @@ function XQrCode({ closeAction, onSuccess }) {
           fps: 60,
           qrbox: { width: 250, height: 250 },
         },
-        async (qrCode) => {
-          html5QrCode
-            .applyVideoConstraints({
-              fps: 60,
-              qrbox: { width: 250, height: 250 },
-              advanced: [{ torch: false }],
-            })
-            .then(() => {
-              html5QrCode.stop();
-              onSuccess(qrCode);
-            });
+        (qrCode) => {
+          html5QrCode.stop().then(() => {
+            onSuccess(qrCode);
+          });
         }
       );
     }
@@ -62,17 +44,8 @@ function XQrCode({ closeAction, onSuccess }) {
       </div>
       <div className={styles.actions}>
         <IconButton
-          onClick={async () => {
-            const config = {
-              fps: 60,
-              qrbox: { width: 250, height: 250 },
-            };
-            if (hasFlashLight) {
-              config["advanced"] = [{ torch: false }];
-            }
-            html5QrCode.applyVideoConstraints(config).then(() => {
-              setIsFlashlightOn(false);
-              html5QrCode.stop();
+          onClick={() => {
+            html5QrCode.stop().then(() => {
               closeAction();
             });
           }}
@@ -82,17 +55,7 @@ function XQrCode({ closeAction, onSuccess }) {
         </IconButton>
         {hasFlashLight ? (
           <IconButton
-            onClick={async () => {
-              html5QrCode
-                .applyVideoConstraints({
-                  fps: 60,
-                  qrbox: { width: 250, height: 250 },
-                  advanced: [{ torch: !isFlashlightOn }],
-                })
-                .then(() => {
-                  setIsFlashlightOn(!isFlashlightOn);
-                });
-            }}
+            onClick={() => {}}
             style={{ color: isFlashlightOn ? "orange" : "black" }}
           >
             <Light />
