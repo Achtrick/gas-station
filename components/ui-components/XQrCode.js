@@ -2,11 +2,12 @@ import styles from "@/styles/components/XQrCode.module.scss";
 import { Close, Light } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
 import { Html5Qrcode } from "html5-qrcode";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 function XQrCode({ closeAction, onSuccess }) {
   const [cameraId, setCameraId] = useState("");
   const [stream, setStream] = useState(null);
   const [isFlashlightOn, setIsFlashlightOn] = useState(false);
+  const flashLightButton = useRef();
 
   var html5QrCode;
 
@@ -28,19 +29,11 @@ function XQrCode({ closeAction, onSuccess }) {
           qrbox: { width: 250, height: 250 },
         },
         async (qrCode) => {
-          await html5QrCode.getRunningTrackCapabilities();
-          if (html5QrCode.setTorchState) {
-            await html5QrCode.setTorchState(false);
-          }
           onSuccess(qrCode);
-          isFlashlightOn && toggleFlashlight();
-          html5QrCode.stop();
-        },
-        async () => {
-          await html5QrCode.getRunningTrackCapabilities();
-          if (html5QrCode.setTorchState) {
-            await html5QrCode.setTorchState(true);
+          if (isFlashlightOn) {
+            flashLightButton.current.click();
           }
+          html5QrCode.stop();
         }
       );
     }
@@ -49,9 +42,8 @@ function XQrCode({ closeAction, onSuccess }) {
   const toggleFlashlight = async () => {
     try {
       if (!stream) {
-        // Start accessing the camera
         const mediaStream = await navigator.mediaDevices.getUserMedia({
-          video: { facingMode: "environment" }, // Use the rear camera
+          video: { facingMode: "environment" },
         });
         setStream(mediaStream);
 
@@ -62,15 +54,14 @@ function XQrCode({ closeAction, onSuccess }) {
           await track.applyConstraints({ advanced: [{ torch: true }] });
           setIsFlashlightOn(true);
         } else {
-          track.stop(); // Stop the camera
+          track.stop();
           setStream(null);
           alert("Flashlight is not supported on this device.");
         }
       } else {
-        // Turn off the flashlight
         const track = stream.getVideoTracks()[0];
         await track.applyConstraints({ advanced: [{ torch: false }] });
-        track.stop(); // Stop the camera
+        track.stop();
         setStream(null);
         setIsFlashlightOn(false);
       }
@@ -97,6 +88,7 @@ function XQrCode({ closeAction, onSuccess }) {
           <Close />
         </IconButton>
         <IconButton
+          ref={flashLightButton}
           onClick={() => {
             toggleFlashlight();
           }}
