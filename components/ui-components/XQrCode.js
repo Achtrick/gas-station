@@ -5,7 +5,6 @@ import { Html5Qrcode } from "html5-qrcode";
 import { useEffect, useState } from "react";
 function XQrCode({ closeAction, onSuccess }) {
   const [ready, setReady] = useState(false);
-  const [track, setTrack] = useState(null);
   const [hasFlashLight, setHasFlashLight] = useState(false);
   const [isFlashlightOn, setIsFlashlightOn] = useState(false);
 
@@ -17,12 +16,11 @@ function XQrCode({ closeAction, onSuccess }) {
         video: { facingMode: "environment" },
       })
       .then((mediaStream) => {
-        const mediaTrack = mediaStream.getVideoTracks()[0];
-        setTrack(mediaTrack);
-        if (mediaTrack.getCapabilities().torch) {
+        const track = mediaStream.getVideoTracks()[0];
+        if (track.getCapabilities().torch) {
           setHasFlashLight(true);
         }
-        mediaTrack.stop();
+        track.stop();
       });
 
     Html5Qrcode.getCameras().then((devices) => {
@@ -43,21 +41,20 @@ function XQrCode({ closeAction, onSuccess }) {
           qrbox: { width: 250, height: 250 },
         },
         async (qrCode) => {
-          if (isFlashlightOn) {
-            await setFlashlightState(false);
-            track.stop();
-          }
-          html5QrCode.stop();
-          onSuccess(qrCode);
+          html5QrCode
+            .applyVideoConstraints({
+              fps: 60,
+              qrbox: { width: 250, height: 250 },
+              advanced: [{ torch: false }],
+            })
+            .then(() => {
+              html5QrCode.stop();
+              onSuccess(qrCode);
+            });
         }
       );
     }
   }, [ready]);
-
-  const setFlashlightState = async (state) => {
-    await track.applyConstraints({ advanced: [{ torch: state }] });
-    setIsFlashlightOn(state);
-  };
 
   return (
     <div className={styles.container}>
@@ -67,12 +64,18 @@ function XQrCode({ closeAction, onSuccess }) {
       <div className={styles.actions}>
         <IconButton
           onClick={async () => {
-            if (isFlashlightOn) {
-              await setFlashlightState(false);
-              track.stop();
+            const config = {
+              fps: 60,
+              qrbox: { width: 250, height: 250 },
+            };
+            if (hasFlashLight) {
+              config["advanced"] = [{ torch: false }];
             }
-            html5QrCode.stop();
-            closeAction();
+            html5QrCode.applyVideoConstraints(config).then(() => {
+              setIsFlashlightOn(false);
+              html5QrCode.stop();
+              closeAction();
+            });
           }}
           color="black"
         >
@@ -81,7 +84,15 @@ function XQrCode({ closeAction, onSuccess }) {
         {hasFlashLight ? (
           <IconButton
             onClick={async () => {
-              await setFlashlightState(!isFlashlightOn);
+              html5QrCode
+                .applyVideoConstraints({
+                  fps: 60,
+                  qrbox: { width: 250, height: 250 },
+                  advanced: [{ torch: !isFlashlightOn }],
+                })
+                .then(() => {
+                  setIsFlashlightOn(!isFlashlightOn);
+                });
             }}
             style={{ color: isFlashlightOn ? "orange" : "black" }}
           >
