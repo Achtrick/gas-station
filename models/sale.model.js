@@ -5,6 +5,7 @@ const saleSchema = new Schema(
     category: { type: String, default: "" },
     subCategory: { type: String, default: "" },
     product: { type: String, default: "" },
+    qty: { type: Number, default: 0 },
   },
   { timestamps: true }
 );

@@ -13,11 +13,14 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
+import StockManager from "./StockManager";
+import { StockActions } from "./types/StockActions";
 import XHr from "./ui-components/XHr";
 function Sidebar() {
   const router = useRouter();
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
+  const [stockManagerAction, setStockManagerAction] = useState(null);
 
   const toggleSidebar = () => {
     setOpen(!open);
@@ -33,6 +36,10 @@ function Sidebar() {
 
   return (
     <>
+      <StockManager
+        stockAction={stockManagerAction}
+        onClose={() => setStockManagerAction(null)}
+      />
       <section className={`${styles.container} ${styles.closed}`}>
         <section className={styles.navigation}>
           <IconButton style={{ color: "#000000" }} onClick={toggleSidebar}>
@@ -64,12 +71,16 @@ function Sidebar() {
           </Link>
           <XHr color="var(--second-color)" />
           <p>
-            <IconButton>
+            <IconButton
+              onClick={() => setStockManagerAction(StockActions.MINUS)}
+            >
               <RemoveCircleOutlineIcon />
             </IconButton>
           </p>
           <p>
-            <IconButton>
+            <IconButton
+              onClick={() => setStockManagerAction(StockActions.PLUS)}
+            >
               <AddCircleOutlineIcon />
             </IconButton>
           </p>

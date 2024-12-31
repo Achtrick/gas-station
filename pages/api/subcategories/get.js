@@ -1,7 +1,10 @@
 import auth from "@/middlewares/admin-auth";
+import Category from "@/models/category.model";
 import SubCategory from "@/models/subCategory.model";
 import connectDB from "@/utils/config/connectDB";
 import nc from "next-connect";
+
+const category = Category;
 
 const handler = nc();
 
@@ -44,6 +47,8 @@ handler.post(auth, async (req, res) => {
           : subCategories
       );
   } catch (err) {
+    console.log(err);
+
     res.status(400).json(err);
   }
 });

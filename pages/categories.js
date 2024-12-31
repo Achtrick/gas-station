@@ -1,6 +1,6 @@
 import DisconnectedGuard from "@/components/guards/disconnectedGuard";
 import Layout from "@/components/Layout";
-import { ModalSizes } from "@/components/ui-components/ModalSizes";
+import { ModalSizes } from "@/components/types/ModalSizes";
 import XActionMenu from "@/components/ui-components/XActionMenu";
 import XHr from "@/components/ui-components/XHr";
 import XPagination from "@/components/ui-components/XPagination";

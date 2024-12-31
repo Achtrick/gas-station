@@ -1,4 +1,4 @@
-import { ModalSizes } from "@/components/ui-components/ModalSizes";
+import { ModalSizes } from "@/components/types/ModalSizes";
 import styles from "@/styles/components/XModal.module.scss";
 import CloseIcon from "@mui/icons-material/Close";
 import { Button, CircularProgress, IconButton, Modal } from "@mui/material";
@@ -37,7 +37,10 @@ function XModal({
               <CloseIcon />
             </IconButton>
           </div>
-          <div className={styles.content}>
+          <div
+            className={styles.content}
+            style={{ paddingBottom: hideControls ? "10px" : "60px" }}
+          >
             {props.children}
             {!hideControls ? (
               <div className={styles.controls}>
