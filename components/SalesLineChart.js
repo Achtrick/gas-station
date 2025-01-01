@@ -1,7 +1,7 @@
 import styles from "@/styles/Chart.module.scss";
 import { getError } from "@/utils/shared/getError";
 import { CircularProgress, useMediaQuery } from "@mui/material";
-import { LineChart, lineElementClasses } from "@mui/x-charts/LineChart";
+import { LineChart } from "@mui/x-charts/LineChart";
 import axios from "axios";
 import { useSnackbar } from "notistack";
 import { useEffect, useState } from "react";
@@ -34,7 +34,17 @@ function SalesLineChart(props) {
   return (
     <div className={styles.container}>
       {loading ? (
-        <CircularProgress />
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            width: isMobile ? "320px" : "500px",
+            height: isMobile ? "280px" : "400px",
+          }}
+        >
+          <CircularProgress />
+        </div>
       ) : salesData ? (
         <>
           <div className={styles.option}>
@@ -75,7 +85,7 @@ function SalesLineChart(props) {
                 data: salesData,
                 label: "Sales",
                 area: true,
-                showMark: true,
+                showMark: false,
               },
             ]}
             xAxis={[
@@ -84,11 +94,6 @@ function SalesLineChart(props) {
                 data: type === TimeSpan.DAILY ? DAYS : MONTHS,
               },
             ]}
-            sx={{
-              [`& .${lineElementClasses.root}`]: {
-                display: "none",
-              },
-            }}
           />
         </>
       ) : (

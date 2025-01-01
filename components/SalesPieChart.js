@@ -33,7 +33,17 @@ function SalesPieChart(props) {
   return (
     <div className={styles.container}>
       {loading ? (
-        <CircularProgress />
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            width: isMobile ? "320px" : "500px",
+            height: isMobile ? "280px" : "400px",
+          }}
+        >
+          <CircularProgress />
+        </div>
       ) : mostSoldData ? (
         <>
           <div className={styles.option}>
