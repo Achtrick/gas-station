@@ -229,6 +229,12 @@ th {
 .MuiInputBase-root {
   background-color: whitesmoke;
 }
+.MuiChartsLegend-series {
+  background-color: white !important;
+  text {
+    font-size: 12px !important;
+  }
+}
 
 @media (max-width: 800px) {
   ::-webkit-scrollbar {

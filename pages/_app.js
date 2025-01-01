@@ -1,7 +1,5 @@
 import { CacheProvider } from "@emotion/react";
 import { CssBaseline, ThemeProvider } from "@mui/material";
-import { LocalizationProvider } from "@mui/x-date-pickers";
-import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import { SnackbarProvider } from "notistack";
 import PropTypes from "prop-types";
 import { Provider } from "react-redux";
@@ -21,14 +19,12 @@ function MyApp(props) {
         <CacheProvider value={emotionCache}>
           <ThemeProvider theme={lightTheme}>
             <CssBaseline />
-            <LocalizationProvider dateAdapter={AdapterMoment}>
-              <SnackbarProvider
-                autoHideDuration={1500}
-                anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-              >
-                <Component {...pageProps} />
-              </SnackbarProvider>
-            </LocalizationProvider>
+            <SnackbarProvider
+              autoHideDuration={1500}
+              anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+            >
+              <Component {...pageProps} />
+            </SnackbarProvider>
           </ThemeProvider>
         </CacheProvider>
       </Provider>

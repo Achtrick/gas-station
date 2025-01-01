@@ -1,10 +1,7 @@
 import auth from "@/middlewares/admin-auth";
-import Category from "@/models/category.model";
 import SubCategory from "@/models/subCategory.model";
 import connectDB from "@/utils/config/connectDB";
 import nc from "next-connect";
-
-const category = Category;
 
 const handler = nc();
 
