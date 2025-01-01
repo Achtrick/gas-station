@@ -34,8 +34,6 @@ handler.post(auth, async (req, res) => {
 
     res.status(200).json({ message: "transaction success" });
   } catch (err) {
-    console.log(err);
-
     res.status(400).json(err);
   }
 });

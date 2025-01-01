@@ -44,8 +44,6 @@ handler.post(auth, async (req, res) => {
           : subCategories
       );
   } catch (err) {
-    console.log(err);
-
     res.status(400).json(err);
   }
 });

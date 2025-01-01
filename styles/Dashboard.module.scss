@@ -1,4 +1,4 @@
-.container {
+.charts-container {
   width: 100%;
   overflow: hidden;
   display: flex;
@@ -13,9 +13,25 @@
     justify-content: center;
   }
 }
+.expiring-products {
+  border: 1px solid #ccc;
+  width: 100%;
+  height: calc(100dvh - 450px);
+  overflow-y: auto;
+
+  table {
+    tr {
+      cursor: default;
+    }
+  }
+}
 
 @media (max-width: 800px) {
-  .container {
+  .charts-container {
     flex-direction: column;
+  }
+  .expiring-products {
+    border: 1px solid transparent;
+    height: calc(100dvh - 600px);
   }
 }
