@@ -114,7 +114,7 @@ export default function Products() {
   };
 
   const onQrCodeSuccess = (qrCode) => {
-    setFormData({ ...formData, code: qrCode });
+    setFormData({ ...formData, code: qrCode[0].rawValue });
     setQrCodeOpen(false);
   };
 

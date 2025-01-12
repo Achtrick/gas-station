@@ -12,6 +12,9 @@
   left: 0px;
   z-index: 5000;
 
+  path {
+    stroke: white;
+  }
   .actions {
     margin-top: 10px;
     display: flex;
@@ -36,9 +39,11 @@
     }
   }
 }
+
 .reader {
   width: 100% !important;
   height: 100% !important;
+
   video {
     object-fit: cover;
   }

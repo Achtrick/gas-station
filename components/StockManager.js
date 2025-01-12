@@ -89,7 +89,7 @@ function StockManager({ stockAction, onClose, qrCode }) {
         <XQrCode
           closeAction={() => setQrCodeOpen(false)}
           onSuccess={(data) => {
-            setQrCode(data);
+            setQrCode(data[0].rawValue);
             setQrCodeOpen(false);
           }}
         />
