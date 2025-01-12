@@ -3,35 +3,136 @@
   overflow: hidden;
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
   padding: 10px;
 
   .chart {
-    width: 50%;
+    width: 49%;
     display: flex;
     align-items: flex-start;
     justify-content: center;
+    box-shadow: var(--card-box-shadow);
+    background-color: var(--card-background-color);
+    border-radius: .75rem;
+    border: var(--card-border);
+  }
+
+  .chart-title {
+    text-align: center;
   }
 }
+
 .expiring-products {
-  border: 1px solid #ccc;
-  width: 100%;
-  height: calc(100dvh - 450px);
-  overflow-y: auto;
+  box-shadow: var(--card-box-shadow);
+  background-color: var(--card-background-color);
+  border-radius: .75rem;
+  border: var(--card-border);
+  margin: 0px 10px;
+  padding: 0px 20px;
+
+  .table-container{
+    height: calc(100dvh - 520px);
+    overflow-y: auto;
+  }
+
+  .prod_danger {
+    background-color: #FFEEF3;
+    color: red;
+    padding: 5px 30px;
+    font-size: 0.96rem;
+    font-weight: 600;
+    border-radius: 8px;
+  }
+
+  .prod_warning {
+    background-color: #FFF8DD;
+    color: #F6C000;
+    padding: 5px 30px;
+    font-size: 0.96rem;
+    font-weight: 600;
+    border-radius: 8px;
+  }
+
+  .prod {
+    display: flex;
+    align-items: center;
+
+    .prod_image {
+      width: 50px;
+      height: 70px;
+      border-radius: 50%;
+      padding: 10px 0px;
+    }
+
+    .prod_title {
+      margin-left: 15px;
+      font-size: 1.075rem !important;
+      font-weight: 700;
+    }
+  }
+
+
 
   table {
+    border: none;
+
     tr {
       cursor: default;
+      border: none;
+      border-bottom: 1px dashed #F1F1F4 !important;
+    }
+
+    td {
+      border: none !important;
+    }
+
+    th {
+      border: none;
+      border-bottom: 2px solid;
+      background-color: #fff;
+      color: #d4d4d5;
     }
   }
 }
 
+
 @media (max-width: 800px) {
   .charts-container {
     flex-direction: column;
+    padding: 10px 0px;
+
+    .chart {
+      width: 100%;
+      margin: 10px auto;
+    }
+
+    .chart-title {
+      text-align: center;
+    }
   }
+
   .expiring-products {
     border: 1px solid transparent;
-    height: calc(100dvh - 600px);
+    margin: auto;
+    padding: 10px;
+
+    .table-container{
+      height: calc(100dvh - 380px);
+    }
+
+    .prod {
+      display: block;
+
+      .prod_image {
+        display: none !important;
+      }
+    }
+
+    tr {
+      background-color: #c8c8c817;
+      padding: 5px 10px !important;
+      border-radius: 8px !important;
+    }
+
   }
 }

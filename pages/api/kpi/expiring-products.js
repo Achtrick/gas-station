@@ -12,7 +12,7 @@ handler.get(auth, async (req, res) => {
     const expiringProducts = await Product.find({ qty: { $lte: 10 } })
       .sort({ qty: 1 })
       .limit(20)
-      .select("_id designation code qty");
+      .select("_id image designation code qty");
 
     res.status(200).json(expiringProducts);
   } catch (err) {

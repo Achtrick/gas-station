@@ -7,6 +7,8 @@ import InventoryIcon from "@mui/icons-material/Inventory";
 import MenuIcon from "@mui/icons-material/Menu";
 import QueryStatsIcon from "@mui/icons-material/QueryStats";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
+import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import WidgetsIcon from "@mui/icons-material/Widgets";
 import { Drawer, IconButton } from "@mui/material";
 import Link from "next/link";
@@ -72,16 +74,16 @@ function Sidebar() {
           <XHr color="var(--second-color)" />
           <p>
             <IconButton
-              onClick={() => setStockManagerAction(StockActions.MINUS)}
+              onClick={() => setStockManagerAction(StockActions.PLUS)}
             >
-              <RemoveCircleOutlineIcon />
+              <AddShoppingCartIcon />
             </IconButton>
           </p>
           <p>
             <IconButton
-              onClick={() => setStockManagerAction(StockActions.PLUS)}
+              onClick={() => setStockManagerAction(StockActions.MINUS)}
             >
-              <AddCircleOutlineIcon />
+              <ShoppingCartCheckoutIcon />
             </IconButton>
           </p>
         </section>

@@ -2,6 +2,7 @@ html,
 body {
   padding: 0;
   margin: 0;
+  background-color: var(--app-bg-color);
 }
 
 a {
@@ -42,6 +43,10 @@ a {
   // colors
   --first-color: #000000;
   --second-color: #cccccc;
+  --app-bg-color: #fcfcfc;
+  --card-box-shadow: 0px 3px 4px 0px rgba(0, 0, 0, .03);
+  --card-background-color: #fff;
+  --card-border :1px solid #f1f1f4;
 }
 
 /* Hide the arrow controls for number input */
@@ -149,43 +154,46 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 // tables
+
 .defaultTable {
   width: 100%;
   text-align: left;
   border: 1px solid #ccc;
   border-collapse: collapse;
+
+   thead {
+    height: 30px;
+    background: #f5f5f5;
+    font-weight: 400;
+    font-size: 13px;
+    text-align: center;
+    text-transform: uppercase;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+  }
+   tbody {
+    background: #ffffff;
+    font-weight: 400;
+    font-size: 13px;
+    text-align: center;
+    text-transform: capitalize;
+  }
+   tbody tr {
+    cursor: pointer;
+    border: 1px solid #ccc;
+    height: 40px;
+    text-align: left;
+  }
+   td,
+  th {
+    text-align: left;
+    padding: 0px 5px;
+    border: 1px solid #ccc;
+    text-overflow: ellipsis;
+  }
 }
-.defaultTable thead {
-  height: 30px;
-  background: #f5f5f5;
-  font-weight: 400;
-  font-size: 13px;
-  text-align: center;
-  text-transform: uppercase;
-  position: sticky;
-  top: 0;
-  z-index: 1;
-}
-.defaultTable tbody {
-  background: #ffffff;
-  font-weight: 400;
-  font-size: 13px;
-  text-align: center;
-  text-transform: capitalize;
-}
-.defaultTable tbody tr {
-  cursor: pointer;
-  border: 1px solid #ccc;
-  height: 40px;
-  text-align: left;
-}
-.defaultTable td,
-th {
-  text-align: left;
-  padding: 0px 5px;
-  border: 1px solid #ccc;
-  text-overflow: ellipsis;
-}
+
 
 // components
 .loadingScreen {
@@ -237,58 +245,63 @@ th {
 }
 
 @media (max-width: 800px) {
+  .css-1u0lry5-MuiChartsLegend-root{
+    display: none;
+  }
   ::-webkit-scrollbar {
     display: none;
   }
   .defaultTable {
     border: none;
-  }
-  .defaultTable caption {
-    font-size: 1.3em;
-  }
-  .defaultTable thead {
-    border: none;
-    clip: rect(0 0 0 0);
-    height: 1px;
-    margin: -1px;
-    overflow: hidden;
-    padding: 0;
-    position: absolute;
-    width: 1px;
-  }
 
-  .defaultTable tr {
-    background-color: whitesmoke;
-    border: 1px solid #ccc;
-    display: block;
-    margin-bottom: 10px;
-    height: 100% !important;
+     caption {
+      font-size: 1.3em;
+    }
+     thead {
+      border: none;
+      clip: rect(0 0 0 0);
+      height: 1px;
+      margin: -1px;
+      overflow: hidden;
+      padding: 0;
+      position: absolute;
+      width: 1px;
+    }
+  
+     tr {
+      background-color: whitesmoke;
+      border: 1px solid #ccc;
+      display: block;
+      margin-bottom: 10px;
+      height: 100% !important;
+    }
+     tbody tr {
+      border: none;
+    }
+     td,
+    th {
+      padding: 10px 5px;
+    }
+     td {
+      display: block;
+      font-size: 0.8em;
+      text-align: right;
+    }
+  
+     td::before {
+      content: attr(data-label);
+      float: left;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+     td:last-child {
+      border: 1px solid #ccc;
+      padding: 5px;
+      @include flexLayout(center, space-between);
+    }
+     tr:last-child {
+      margin-bottom: 0px;
+    }
   }
-  .defaultTable tbody tr {
-    border: none;
-  }
-  .defaultTable td,
-  th {
-    padding: 10px 5px;
-  }
-  .defaultTable td {
-    display: block;
-    font-size: 0.8em;
-    text-align: right;
-  }
-
-  .defaultTable td::before {
-    content: attr(data-label);
-    float: left;
-    font-weight: bold;
-    text-transform: uppercase;
-  }
-  .defaultTable td:last-child {
-    border: 1px solid #ccc;
-    padding: 5px;
-    @include flexLayout(center, space-between);
-  }
-  .defaultTable tr:last-child {
-    margin-bottom: 0px;
-  }
+  
 }

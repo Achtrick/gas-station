@@ -279,6 +279,7 @@ export default function Products() {
             <table className="defaultTable">
               <thead>
                 <tr>
+                  <th>Image</th>
                   <th>designation</th>
                   <th>sub-category</th>
                   <th>qty</th>
@@ -298,12 +299,18 @@ export default function Products() {
                       style={
                         product._id === formData._id
                           ? {
-                              backgroundColor: "var(--first-color)",
-                              color: "white",
-                            }
+                            backgroundColor: "var(--first-color)",
+                            color: "white",
+                          }
                           : null
                       }
                     >
+                      <td data-label="Image" className={styles.prod_image}><img src={
+                        product.image.length > 0
+                          ? product.image
+                          : "image-thumbnail.jpg"
+                      }
+                        alt="" /></td>
                       <td data-label="Designation">{product.designation}</td>
                       <td data-label="Sub Category">
                         {product.subCategory.name}

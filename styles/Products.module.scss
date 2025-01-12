@@ -1,4 +1,5 @@
 @import "./Arena.module.scss";
+
 .dataform {
   img {
     width: 90px;
@@ -13,7 +14,19 @@
 
 .datagrid {
   height: calc(100dvh - 460px);
+
+  img {
+    width: 50px;
+    height: 70px;
+    border-radius: 50%;
+    padding: 10px 0px;
+  }
 }
+
+.prod_image {
+  width: 5% !important;
+}
+
 .qrcode {
   width: 100%;
   position: relative;
@@ -28,5 +41,9 @@
 @media (max-width: 800px) {
   .datagrid {
     height: calc(100dvh - 500px);
+  }
+
+  .prod_image {
+    display: none !important;
   }
 }
