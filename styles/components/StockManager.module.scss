@@ -24,7 +24,7 @@
   .product {
     width: 100%;
     display: flex;
-    align-items: center;
+    align-items: flex-end;
 
     p:nth-child(1) {
       font-weight: 600;
@@ -34,8 +34,9 @@
     img {
       width: 150px;
       height: 150px;
-      object-fit: contain;
+      object-fit: cover;
       margin-right: 10px;
+      border-radius: 5px;
     }
   }
   .form {

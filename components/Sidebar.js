@@ -1,14 +1,12 @@
 import styles from "@/styles/Sidebar.module.scss";
 import { Close } from "@mui/icons-material";
-import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import InventoryIcon from "@mui/icons-material/Inventory";
 import MenuIcon from "@mui/icons-material/Menu";
 import QueryStatsIcon from "@mui/icons-material/QueryStats";
-import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
-import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
-import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
 import WidgetsIcon from "@mui/icons-material/Widgets";
 import { Drawer, IconButton } from "@mui/material";
 import Link from "next/link";

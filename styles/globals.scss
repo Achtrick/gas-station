@@ -44,9 +44,9 @@ a {
   --first-color: #000000;
   --second-color: #cccccc;
   --app-bg-color: #fcfcfc;
-  --card-box-shadow: 0px 3px 4px 0px rgba(0, 0, 0, .03);
+  --card-box-shadow: 0px 3px 4px 0px rgba(0, 0, 0, 0.03);
   --card-background-color: #fff;
-  --card-border :1px solid #f1f1f4;
+  --card-border: 1px solid #f1f1f4;
 }
 
 /* Hide the arrow controls for number input */
@@ -161,7 +161,7 @@ input[type="number"]::-webkit-outer-spin-button {
   border: 1px solid #ccc;
   border-collapse: collapse;
 
-   thead {
+  thead {
     height: 30px;
     background: #f5f5f5;
     font-weight: 400;
@@ -172,20 +172,20 @@ input[type="number"]::-webkit-outer-spin-button {
     top: 0;
     z-index: 1;
   }
-   tbody {
+  tbody {
     background: #ffffff;
     font-weight: 400;
     font-size: 13px;
     text-align: center;
     text-transform: capitalize;
   }
-   tbody tr {
+  tbody tr {
     cursor: pointer;
     border: 1px solid #ccc;
     height: 40px;
     text-align: left;
   }
-   td,
+  td,
   th {
     text-align: left;
     padding: 0px 5px;
@@ -193,7 +193,6 @@ input[type="number"]::-webkit-outer-spin-button {
     text-overflow: ellipsis;
   }
 }
-
 
 // components
 .loadingScreen {
@@ -245,19 +244,17 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 @media (max-width: 800px) {
-  .css-1u0lry5-MuiChartsLegend-root{
+  .css-1u0lry5-MuiChartsLegend-root {
     display: none;
   }
-  ::-webkit-scrollbar {
-    display: none;
-  }
+
   .defaultTable {
     border: none;
 
-     caption {
+    caption {
       font-size: 1.3em;
     }
-     thead {
+    thead {
       border: none;
       clip: rect(0 0 0 0);
       height: 1px;
@@ -267,41 +264,40 @@ input[type="number"]::-webkit-outer-spin-button {
       position: absolute;
       width: 1px;
     }
-  
-     tr {
+
+    tr {
       background-color: whitesmoke;
       border: 1px solid #ccc;
       display: block;
       margin-bottom: 10px;
       height: 100% !important;
     }
-     tbody tr {
+    tbody tr {
       border: none;
     }
-     td,
+    td,
     th {
       padding: 10px 5px;
     }
-     td {
+    td {
       display: block;
       font-size: 0.8em;
       text-align: right;
     }
-  
-     td::before {
+
+    td::before {
       content: attr(data-label);
       float: left;
       font-weight: bold;
       text-transform: uppercase;
     }
-     td:last-child {
+    td:last-child {
       border: 1px solid #ccc;
       padding: 5px;
       @include flexLayout(center, space-between);
     }
-     tr:last-child {
+    tr:last-child {
       margin-bottom: 0px;
     }
   }
-  
 }

@@ -12,9 +12,12 @@ import { Clear, Inventory, QrCode, Search } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
 import axios from "axios";
 import { useSnackbar } from "notistack";
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
+import { Context } from "./_app";
 
 export default function Products() {
+  const { updateLayoutData } = useContext(Context);
+
   const searchField = useRef();
 
   const { enqueueSnackbar } = useSnackbar();
@@ -51,8 +54,8 @@ export default function Products() {
     }
   };
 
-  const getProducts = async () => {
-    setLoading(true);
+  const getProducts = async (showLoader = true) => {
+    showLoader && setLoading(true);
     try {
       const { data } = await axios.post("api/products/get", {
         page: page + 1,
@@ -136,6 +139,10 @@ export default function Products() {
     !subCategories.length && getSubCategories();
     getProducts();
   }, [searchTerm, page]);
+
+  useEffect(() => {
+    getProducts(false);
+  }, [updateLayoutData]);
 
   return (
     <DisconnectedGuard>
@@ -299,18 +306,22 @@ export default function Products() {
                       style={
                         product._id === formData._id
                           ? {
-                            backgroundColor: "var(--first-color)",
-                            color: "white",
-                          }
+                              backgroundColor: "var(--first-color)",
+                              color: "white",
+                            }
                           : null
                       }
                     >
-                      <td data-label="Image" className={styles.prod_image}><img src={
-                        product.image.length > 0
-                          ? product.image
-                          : "image-thumbnail.jpg"
-                      }
-                        alt="" /></td>
+                      <td data-label="Image" className={styles.prod_image}>
+                        <img
+                          src={
+                            product.image.length > 0
+                              ? product.image
+                              : "image-thumbnail.jpg"
+                          }
+                          alt=""
+                        />
+                      </td>
                       <td data-label="Designation">{product.designation}</td>
                       <td data-label="Sub Category">
                         {product.subCategory.name}

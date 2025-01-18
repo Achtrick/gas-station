@@ -1,11 +1,12 @@
-import styles from "@/styles/StockManager.module.scss";
+import { Context } from "@/pages/_app";
+import styles from "@/styles/components/StockManager.module.scss";
 import { getError } from "@/utils/shared/getError";
 import { QrCode } from "@mui/icons-material";
 import { Button, CircularProgress, IconButton } from "@mui/material";
 import Skeleton from "@mui/material/Skeleton";
 import axios from "axios";
 import { useSnackbar } from "notistack";
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { ModalSizes } from "./types/ModalSizes";
 import { StockActions } from "./types/StockActions";
 import XHr from "./ui-components/XHr";
@@ -13,6 +14,8 @@ import XModal from "./ui-components/XModal";
 import XQrCode from "./ui-components/XQrCode";
 
 function StockManager({ stockAction, onClose, qrCode }) {
+  const { setUpdateLayoutData } = useContext(Context);
+
   const { enqueueSnackbar } = useSnackbar();
   const qtyInput = useRef();
 
@@ -81,6 +84,7 @@ function StockManager({ stockAction, onClose, qrCode }) {
     setQrCode("");
     setQty("");
     setProduct(null);
+    setUpdateLayoutData(Math.random());
   };
 
   return (
@@ -128,7 +132,7 @@ function StockManager({ stockAction, onClose, qrCode }) {
                   <p>({product.qty}) items in stock</p>
                 </div>
               </div>
-              <XHr color="var(--first-color)" width="100%" />
+              <XHr color="#ccc" width="100%" />
               <div className={styles.form}>
                 <input
                   ref={qtyInput}
