@@ -155,7 +155,7 @@ input[type="number"]::-webkit-outer-spin-button {
 
 // tables
 
-.defaultTable {
+table {
   width: 100%;
   text-align: left;
   border: 1px solid #ccc;
@@ -251,7 +251,7 @@ input[type="number"]::-webkit-outer-spin-button {
     display: none;
   }
 
-  .defaultTable {
+  .responsiveTable {
     border: none;
 
     caption {

@@ -207,7 +207,7 @@ export default function SubCategories() {
             </div>
           </div>
           <div className={styles.datagrid}>
-            <table className="defaultTable">
+            <table className="responsiveTable">
               <thead>
                 <tr>
                   <th>name</th>

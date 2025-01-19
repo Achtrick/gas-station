@@ -4,13 +4,15 @@ import XDatePicker from "@/components/ui-components/XDatePicker";
 import styles from "@/styles/Reports.module.scss";
 import { getError } from "@/utils/shared/getError";
 import IosShareOutlinedIcon from "@mui/icons-material/IosShareOutlined";
-import { IconButton, Skeleton } from "@mui/material";
+import { IconButton, Skeleton, Tooltip } from "@mui/material";
 import axios from "axios";
 import moment from "moment";
 import { useSnackbar } from "notistack";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import ReactToPrint from "react-to-print";
 
 function Reports(props) {
+  const reportsRef = useRef();
   const { enqueueSnackbar } = useSnackbar();
 
   const [loading, setLoading] = useState(true);
@@ -58,42 +60,90 @@ function Reports(props) {
               />
             </div>
             &nbsp;
-            <IconButton style={{ color: "#333" }}>
-              <IosShareOutlinedIcon />
-            </IconButton>
+            <ReactToPrint
+              trigger={() => (
+                <Tooltip title="export">
+                  <IconButton style={{ color: "#333" }}>
+                    <IosShareOutlinedIcon />
+                  </IconButton>
+                </Tooltip>
+              )}
+              content={() => reportsRef.current}
+            />
           </div>
           <div className={styles.body}>
             {loading ? (
               <Skeleton height="calc(100%)" />
             ) : (
-              <div className={styles.tableContainer}>
-                <table className="defaultTable">
-                  <thead>
-                    <tr>
-                      <th>Product</th>
-                      <th>Category</th>
-                      <th>Sub-Category</th>
-                      <th>Qty</th>
-                      <th>Date</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {sales.map((sale) => {
-                      return (
-                        <tr key={sale._id}>
-                          <td>{sale.product}</td>
-                          <td>{sale.category}</td>
-                          <td>{sale.subCategory}</td>
-                          <td>{sale.qty}</td>
-                          <td>
-                            {moment(sale.createdAt).format("DD-MM-YYYY  HH:mm")}
-                          </td>
-                        </tr>
-                      );
-                    })}
-                  </tbody>
-                </table>
-              </div>
+              <>
+                <div className={styles.tableContainer}>
+                  <table className="responsiveTable">
+                    <thead>
+                      <tr>
+                        <th>Product</th>
+                        <th>Category</th>
+                        <th>Sub-Category</th>
+                        <th>Qty</th>
+                        <th>Date</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {sales.map((sale) => {
+                        return (
+                          <tr key={sale._id}>
+                            <td data-label="Product">{sale.product}</td>
+                            <td data-label="Category">{sale.category}</td>
+                            <td data-label="Sub-Category">
+                              {sale.subCategory}
+                            </td>
+                            <td data-label="Qty">{sale.qty}</td>
+                            <td data-label="Created">
+                              {moment(sale.createdAt).format(
+                                "DD-MM-YYYY  HH:mm"
+                              )}
+                            </td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </div>
+                <div ref={reportsRef} className={styles.reportsPrintContent}>
+                  <p>
+                    Sales from "{moment(startDate).format("DD-MM-YYYY")}" to "
+                    {moment(endDate).format("DD-MM-YYYY")}"
+                  </p>
+                  <hr />
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Product</th>
+                        <th>Category</th>
+                        <th>Sub-Category</th>
+                        <th>Qty</th>
+                        <th>Date</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {sales.map((sale) => {
+                        return (
+                          <tr key={sale._id}>
+                            <td>{sale.product}</td>
+                            <td>{sale.category}</td>
+                            <td>{sale.subCategory}</td>
+                            <td>{sale.qty}</td>
+                            <td>
+                              {moment(sale.createdAt).format(
+                                "DD-MM-YYYY  HH:mm"
+                              )}
+                            </td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </div>
+              </>
             )}
           </div>
         </div>

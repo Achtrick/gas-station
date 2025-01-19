@@ -57,36 +57,57 @@ export default function Dashboard() {
         </div>
         <div className={styles["expiring-products"]}>
           <h1>Stock Report</h1>
-          {loading ? <Skeleton height="calc(100dvh - 520px)" /> : <div className={styles['table-container']}><table className="defaultTable">
-            <thead>
-              <tr>
-                <th>Product</th>
-                <th>Code</th>
-                <th>Qty</th>
-              </tr>
-            </thead>
-            <tbody>
-              {products.map((product) => {
-                return (
-                  <tr key={product._id}>
-                    <td data-label="Product">
-                      <div className={styles.prod}>
-                        <img className={styles.prod_image} src={
-                          product.image.length > 0
-                            ? product.image
-                            : "image-thumbnail.jpg"
-                        }
-                          alt="" /><span className={styles.prod_title}>{product.designation}</span>
-                      </div>
-                    </td>
-                    <td data-label="Code">{product.code}</td>
-                    <td data-label="Qty"><span className={(product.qty <= 5) ? styles.prod_danger : styles.prod_warning}>{product.qty}</span></td>
+          {loading ? (
+            <Skeleton height="calc(100dvh - 520px)" />
+          ) : (
+            <div className={styles["table-container"]}>
+              <table className="responsiveTable">
+                <thead>
+                  <tr>
+                    <th>Product</th>
+                    <th>Code</th>
+                    <th>Qty</th>
                   </tr>
-                );
-              })}
-            </tbody>
-          </table>
-          </div>}
+                </thead>
+                <tbody>
+                  {products.map((product) => {
+                    return (
+                      <tr key={product._id}>
+                        <td data-label="Product">
+                          <div className={styles.prod}>
+                            <img
+                              className={styles.prod_image}
+                              src={
+                                product.image.length > 0
+                                  ? product.image
+                                  : "image-thumbnail.jpg"
+                              }
+                              alt=""
+                            />
+                            <span className={styles.prod_title}>
+                              {product.designation}
+                            </span>
+                          </div>
+                        </td>
+                        <td data-label="Code">{product.code}</td>
+                        <td data-label="Qty">
+                          <span
+                            className={
+                              product.qty <= 5
+                                ? styles.prod_danger
+                                : styles.prod_warning
+                            }
+                          >
+                            {product.qty}
+                          </span>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+          )}
         </div>
       </Layout>
     </DisconnectedGuard>

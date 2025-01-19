@@ -283,7 +283,7 @@ export default function Products() {
             </div>
           </div>
           <div className={styles.datagrid}>
-            <table className="defaultTable">
+            <table className="responsiveTable">
               <thead>
                 <tr>
                   <th>Image</th>
