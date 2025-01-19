@@ -6,13 +6,13 @@ import { getError } from "@/utils/shared/getError";
 import IosShareOutlinedIcon from "@mui/icons-material/IosShareOutlined";
 import { IconButton, Skeleton, Tooltip } from "@mui/material";
 import axios from "axios";
+import jsPDF from "jspdf";
+import "jspdf-autotable";
 import moment from "moment";
 import { useSnackbar } from "notistack";
-import { useEffect, useRef, useState } from "react";
-import ReactToPrint from "react-to-print";
+import { useEffect, useState } from "react";
 
 function Reports(props) {
-  const reportsRef = useRef();
   const { enqueueSnackbar } = useSnackbar();
 
   const [loading, setLoading] = useState(true);
@@ -41,6 +41,36 @@ function Reports(props) {
     }
   };
 
+  const downloadPDF = () => {
+    const doc = new jsPDF();
+    const title = `Sales Report: ${moment(startDate).format(
+      "DD-MM-YYYY"
+    )} to ${moment(endDate).format("DD-MM-YYYY")}`;
+
+    doc.setFontSize(16);
+    doc.text(title, 13, 20);
+    doc.setFontSize(12);
+
+    doc.add;
+    doc.autoTable({
+      startY: 30,
+      head: [["Product", "Category", "Sub-Category", "Qty", "Date"]],
+      body: sales.map((sale) => [
+        sale.product,
+        sale.category,
+        sale.subCategory,
+        sale.qty,
+        moment(sale.createdAt).format("DD-MM-YYYY  HH:mm"),
+      ]),
+    });
+
+    doc.save(
+      `SalesReport_${moment(startDate).format("DD-MM-YYYY")}_to_${moment(
+        endDate
+      ).format("DD-MM-YYYY")}.pdf`
+    );
+  };
+
   return (
     <DisconnectedGuard>
       <Layout>
@@ -60,90 +90,42 @@ function Reports(props) {
               />
             </div>
             &nbsp;
-            <ReactToPrint
-              trigger={() => (
-                <Tooltip title="export">
-                  <IconButton style={{ color: "#333" }}>
-                    <IosShareOutlinedIcon />
-                  </IconButton>
-                </Tooltip>
-              )}
-              content={() => reportsRef.current}
-            />
+            <Tooltip title="Export as PDF">
+              <IconButton style={{ color: "#333" }} onClick={downloadPDF}>
+                <IosShareOutlinedIcon />
+              </IconButton>
+            </Tooltip>
           </div>
           <div className={styles.body}>
             {loading ? (
               <Skeleton height="calc(100%)" />
             ) : (
-              <>
-                <div className={styles.tableContainer}>
-                  <table className="responsiveTable">
-                    <thead>
-                      <tr>
-                        <th>Product</th>
-                        <th>Category</th>
-                        <th>Sub-Category</th>
-                        <th>Qty</th>
-                        <th>Date</th>
+              <div className={styles.tableContainer}>
+                <table className="responsiveTable">
+                  <thead>
+                    <tr>
+                      <th>Product</th>
+                      <th>Category</th>
+                      <th>Sub-Category</th>
+                      <th>Qty</th>
+                      <th>Date</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {sales.map((sale) => (
+                      <tr key={sale._id}>
+                        <td>{sale.product}</td>
+                        <td>{sale.category}</td>
+                        <td>{sale.subCategory}</td>
+                        <td>{sale.qty}</td>
+                        <td>
+                          {moment(sale.createdAt).format("DD-MM-YYYY  HH:mm")}
+                        </td>
                       </tr>
-                    </thead>
-                    <tbody>
-                      {sales.map((sale) => {
-                        return (
-                          <tr key={sale._id}>
-                            <td data-label="Product">{sale.product}</td>
-                            <td data-label="Category">{sale.category}</td>
-                            <td data-label="Sub-Category">
-                              {sale.subCategory}
-                            </td>
-                            <td data-label="Qty">{sale.qty}</td>
-                            <td data-label="Created">
-                              {moment(sale.createdAt).format(
-                                "DD-MM-YYYY  HH:mm"
-                              )}
-                            </td>
-                          </tr>
-                        );
-                      })}
-                    </tbody>
-                  </table>
-                </div>
-                <div ref={reportsRef} className={styles.reportsPrintContent}>
-                  <p>
-                    Sales from "{moment(startDate).format("DD-MM-YYYY")}" to "
-                    {moment(endDate).format("DD-MM-YYYY")}"
-                  </p>
-                  <hr />
-                  <table>
-                    <thead>
-                      <tr>
-                        <th>Product</th>
-                        <th>Category</th>
-                        <th>Sub-Category</th>
-                        <th>Qty</th>
-                        <th>Date</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {sales.map((sale) => {
-                        return (
-                          <tr key={sale._id}>
-                            <td>{sale.product}</td>
-                            <td>{sale.category}</td>
-                            <td>{sale.subCategory}</td>
-                            <td>{sale.qty}</td>
-                            <td>
-                              {moment(sale.createdAt).format(
-                                "DD-MM-YYYY  HH:mm"
-                              )}
-                            </td>
-                          </tr>
-                        );
-                      })}
-                    </tbody>
-                  </table>
-                </div>
-              </>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             )}
           </div>
         </div>

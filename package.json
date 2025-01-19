@@ -25,6 +25,8 @@
     "bcryptjs": "^2.4.3",
     "compress.js": "^1.2.2",
     "jsonwebtoken": "^8.5.1",
+    "jspdf": "^2.5.2",
+    "jspdf-autotable": "^3.8.4",
     "moment": "^2.29.4",
     "mongoose": "^6.7.2",
     "next": "13.5.3",
@@ -36,7 +38,6 @@
     "react-dom": "18.2.0",
     "react-image-file-resizer": "^0.4.8",
     "react-redux": "^8.0.5",
-    "react-to-print": "^2.15.1",
     "swiper": "^8.4.7"
   },
   "devDependencies": {

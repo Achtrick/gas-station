@@ -141,6 +141,8 @@ function StockManager({ stockAction, onClose, qrCode }) {
                   placeholder="qty"
                   className="defaultInput"
                   value={qty}
+                  min={1}
+                  max={product.qty}
                   onChange={(e) => setQty(e.target.value)}
                 />
                 <Button
