@@ -56,7 +56,7 @@ export default function Dashboard() {
           </div>
         </div>
         <div className={styles["expiring-products"]}>
-          <h1>Stock Report</h1>
+          <h1 style={{color: "#173363"}}>Stock Report</h1>
           {loading ? (
             <Skeleton height="calc(100dvh - 520px)" />
           ) : (

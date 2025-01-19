@@ -38,10 +38,10 @@ const XAutoComplete = ({
           placeholder={placeholder}
           required={required}
           sx={{
-            backgroundColor: "white",
+            backgroundColor: "white !important",
             "& .MuiOutlinedInput-notchedOutline": {
               borderRadius: "5px !important",
-              border: "1px solid #ccc !important",
+              border: "1px solid #DBDFE9 !important",
             },
             "& .MuiAutocomplete-input": {
               fontFamily: "sans-serif",

@@ -169,56 +169,72 @@ export default function Products() {
           remove={{ disabled: !formData._id, action: () => setModalOpen(true) }}
         />
         <section className={styles.container}>
+          <div className={styles.row} style={{ justifyContent: "flex-start" }}>
+            <Inventory style={{ width: "35px", height: "35px" }} />
+            <h1 className={styles.title}>Products</h1>
+          </div>
           <div className={styles.dataform}>
             <form onSubmit={save}>
-              <Inventory style={{ width: "60px", height: "60px" }} />
-              <XAutoComplete
-                value={formData.subCategory}
-                options={subCategories}
-                formData={formData}
-                setFormData={setFormData}
-                optionDisplayExpr="name"
-                optionValueExpr="_id"
-                attributeKey={"subCategory"}
-                placeholder="Sub-Category"
-                required={true}
-              />
-              <input
-                required
-                type="text"
-                name="designation"
-                placeholder="designation"
-                className="defaultInput"
-                value={formData.designation}
-                onChange={onChange}
-              />
-              <div className={styles.qrcode}>
-                <input
-                  required
-                  type="text"
-                  name="code"
-                  placeholder="code"
-                  className="defaultInput"
-                  value={formData.code}
-                  onChange={onChange}
-                />
-                <IconButton
-                  className={styles.qrcodeButton}
-                  color="black"
-                  onClick={() => setQrCodeOpen(true)}
-                >
-                  <QrCode />
-                </IconButton>
+              <div className={styles.row}>
+                <div className={styles.col_6}>
+                  <XAutoComplete
+                    value={formData.subCategory}
+                    options={subCategories}
+                    formData={formData}
+                    setFormData={setFormData}
+                    optionDisplayExpr="name"
+                    optionValueExpr="_id"
+                    attributeKey={"subCategory"}
+                    placeholder="Sub-Category"
+                    required={true}
+                  />
+                </div>
+                <div className={styles.col_6}>
+                  <input
+                    required
+                    type="text"
+                    name="designation"
+                    placeholder="designation"
+                    className="defaultInput"
+                    value={formData.designation}
+                    onChange={onChange}
+                  />
+                </div>
               </div>
-              <input
-                required
-                type="number"
-                name="qty"
-                placeholder="qty"
-                className="defaultInput"
-                value={formData.qty}
-                onChange={onChange}
-              />
+
+              <div className={styles.row}>
+                <div className={styles.col_6}>
+                  <div className={styles.qrcode}>
+                    <input
+                      required
+                      type="text"
+                      name="code"
+                      placeholder="code"
+                      className="defaultInput"
+                      value={formData.code}
+                      onChange={onChange}
+                    />
+                    <IconButton
+                      className={styles.qrcodeButton}
+                      color="black"
+                      onClick={() => setQrCodeOpen(true)}
+                    >
+                      <QrCode />
+                    </IconButton>
+                  </div>
+                </div>
+                <div className={styles.col_6}>
+                  <input
+                    required
+                    type="number"
+                    name="qty"
+                    placeholder="qty"
+                    className="defaultInput"
+                    value={formData.qty}
+                    onChange={onChange}
+                  />
+                </div>
+              </div>
               <input
                 id="image-input"
                 type="file"
@@ -250,7 +266,6 @@ export default function Products() {
               ></button>
             </form>
           </div>
-          <XHr color={"var(--first-color)"} />
           <div className={styles.pagination}>
             <XPagination
               page={page}

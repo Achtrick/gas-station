@@ -144,9 +144,12 @@ export default function SubCategories() {
           remove={{ disabled: !formData._id, action: () => setModalOpen(true) }}
         />
         <section className={styles.container}>
+          <div className={styles.row} style={{ justifyContent: "flex-start" }}>
+            <WidgetsIcon style={{ width: "35px", height: "35px" }} />
+            <h1 className={styles.title}>SubCategories</h1>
+          </div>
           <div className={styles.dataform}>
             <form onSubmit={save}>
-              <WidgetsIcon style={{ width: "60px", height: "60px" }} />
               <XAutoComplete
                 value={formData.category}
                 options={categories}
@@ -174,7 +177,6 @@ export default function SubCategories() {
               ></button>
             </form>
           </div>
-          <XHr color={"var(--first-color)"} />
           <div className={styles.pagination}>
             <XPagination
               page={page}
@@ -228,9 +230,9 @@ export default function SubCategories() {
                       style={
                         subCategory._id === formData._id
                           ? {
-                              backgroundColor: "var(--first-color)",
-                              color: "white",
-                            }
+                            backgroundColor: "var(--first-color)",
+                            color: "white",
+                          }
                           : null
                       }
                     >

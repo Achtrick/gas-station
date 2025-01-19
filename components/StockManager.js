@@ -136,7 +136,7 @@ function StockManager({ stockAction, onClose, qrCode }) {
               <div className={styles.form}>
                 <input
                   ref={qtyInput}
-                  type="text"
+                  type="number"
                   name="qty"
                   placeholder="qty"
                   className="defaultInput"
@@ -145,7 +145,7 @@ function StockManager({ stockAction, onClose, qrCode }) {
                 />
                 <Button
                   color="black"
-                  style={{ color: "white", width: "100px" }}
+                  style={{ color: "white", width: "100px", backgroundColor: "#1f85ff", textTransform: "capitalize" }}
                   variant="contained"
                   disabled={loadingAction}
                   onClick={executeTransaction}

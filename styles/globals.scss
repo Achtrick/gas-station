@@ -9,11 +9,13 @@ a {
   color: inherit;
   text-decoration: none;
 }
+
 * {
   box-sizing: border-box;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
+
 /* Scrollbar Track */
 ::-webkit-scrollbar {
   width: 8px;
@@ -22,7 +24,8 @@ a {
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background-color: #ccc; /* Change this to your preferred color */
+  background-color: #ccc;
+  /* Change this to your preferred color */
 }
 
 /* Handle on hover */
@@ -32,16 +35,15 @@ a {
 
 /* Track */
 ::-webkit-scrollbar-track {
-  background: linear-gradient(
-    to bottom,
-    #f0f0f0,
-    #d9d9d9
-  ); /* Gradient background */
+  background: linear-gradient(to bottom,
+      #f0f0f0,
+      #d9d9d9);
+  /* Gradient background */
 }
 
 :root {
   // colors
-  --first-color: #000000;
+  --first-color: #173363;
   --second-color: #cccccc;
   --app-bg-color: #fcfcfc;
   --card-box-shadow: 0px 3px 4px 0px rgba(0, 0, 0, 0.03);
@@ -51,27 +53,31 @@ a {
 
 /* Hide the arrow controls for number input */
 input[type="number"] {
-  -moz-appearance: textfield; /* Firefox */
+  -moz-appearance: textfield;
+  /* Firefox */
 }
+
 input::placeholder,
 textarea::placeholder {
   text-transform: capitalize;
 }
+
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
-  -webkit-appearance: none; /* WebKit browsers like Chrome and Safari */
-  margin: 0; /* Removes the default margin */
+  -webkit-appearance: none;
+  /* WebKit browsers like Chrome and Safari */
+  margin: 0;
+  /* Removes the default margin */
 }
+
 .SnackbarContent-root {
   text-transform: uppercase;
 }
 
 // functions
-@mixin flexLayout(
-  $alignItems: center,
+@mixin flexLayout($alignItems: center,
   $justifyContent: center,
-  $flexDirection: row
-) {
+  $flexDirection: row) {
   display: flex;
   flex-direction: $flexDirection;
   align-items: $alignItems;
@@ -80,23 +86,36 @@ input[type="number"]::-webkit-outer-spin-button {
 
 // inputs
 .defaultInput {
-  background-color: whitesmoke;
   border-radius: 5px;
-  border: 1px solid #ccc;
+  border: 1px solid #DBDFE9;
   height: 40px;
   width: 100%;
   padding: 5px;
   margin: 5px 0px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  line-height: 1.5;
+  color: #4B5675;
+  transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
 }
+
+.defaultInput:focus-visible {
+  outline: 1px solid #DBDFE9 !important;
+  border-bottom: 1px solid #1f85ff;
+
+}
+
 .labeledInput {
   width: 100%;
   @include flexLayout(flex-start, center, column);
   margin: 5px 0px;
+
   label {
     font-size: 14px;
     text-transform: capitalize;
     color: var(--first-color);
   }
+
   textarea {
     resize: none;
     height: 100px;
@@ -106,19 +125,19 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 .defaultSelect {
-  background: whitesmoke;
   color: black;
   width: 100%;
   height: 40px;
   padding: 5px;
   margin: 5px 0px;
-  border: 1px solid #ccc;
+  border: 1px solid #1f85ff;
   border-radius: 4px;
   cursor: pointer;
 
   &:hover {
     border-color: #888;
   }
+
   option {
     background: white;
     color: black;
@@ -128,6 +147,7 @@ input[type="number"]::-webkit-outer-spin-button {
       background: black;
       color: white;
     }
+
     :hover {
       background: whitesmoke;
       color: black;
@@ -145,6 +165,7 @@ input[type="number"]::-webkit-outer-spin-button {
   @include flexLayout;
   background-color: transparent;
   backdrop-filter: blur(25px);
+
   .loaderContainer {
     width: 100%;
     height: 100%;
@@ -158,7 +179,7 @@ input[type="number"]::-webkit-outer-spin-button {
 table {
   width: 100%;
   text-align: left;
-  border: 1px solid #ccc;
+  border: none;
   border-collapse: collapse;
 
   thead {
@@ -172,6 +193,12 @@ table {
     top: 0;
     z-index: 1;
   }
+
+  thead th {
+    border-bottom: 2px solid !important;
+    color: #156dd8;
+  }
+
   tbody {
     background: #ffffff;
     font-weight: 400;
@@ -179,17 +206,24 @@ table {
     text-align: center;
     text-transform: capitalize;
   }
+
   tbody tr {
     cursor: pointer;
-    border: 1px solid #ccc;
-    height: 40px;
+    border: none;
+    border-bottom: 1px dashed #156dd8 !important;
+    height: 35px;
     text-align: left;
   }
+
+  tbody td {
+    border: none !important;
+  }
+
   td,
   th {
     text-align: left;
     padding: 0px 5px;
-    border: 1px solid #ccc;
+    border: none !important;
     text-overflow: ellipsis;
   }
 }
@@ -213,12 +247,14 @@ table {
     object-fit: cover;
   }
 }
+
 .swiper-button-prev::after,
 .swiper-button-next::after {
   color: black;
   font-size: 20px !important;
   font-weight: bolder;
 }
+
 .swiper-button-prev,
 .swiper-button-next {
   background-color: #ffffff !important;
@@ -227,80 +263,121 @@ table {
   border-radius: 50%;
   box-shadow: 0px 0px 5px #ccc;
 }
+
 .swiper-pagination {
   margin-top: -20px !important;
 }
+
 .swiper-pagination-bullet-active {
   background-color: black !important;
 }
+
 .MuiInputBase-root {
-  background-color: whitesmoke;
+  border-radius: 5px;
+  background-color: white;
+  border: 0px solid #DBDFE9;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.5;
+  color: #4B5675;
+  transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
 }
+
+.MuiInputBase-root:focus-visible {
+  outline: 1px solid #DBDFE9 !important;
+  border-bottom: 1px solid #1f85ff !important;
+}
+
 .MuiChartsLegend-series {
   background-color: white !important;
+
   text {
     font-size: 12px !important;
   }
 }
+
 .MuiSkeleton-root {
   transform: none !important;
 }
 
 @media (max-width: 800px) {
   .css-1u0lry5-MuiChartsLegend-root {
-    display: none;
-  }
-
-  .responsiveTable {
-    border: none;
-
-    caption {
-      font-size: 1.3em;
+    .css-1u0lry5-MuiChartsLegend-root {
+      display: none;
     }
-    thead {
+
+    .responsiveTable {
       border: none;
-      clip: rect(0 0 0 0);
-      height: 1px;
-      margin: -1px;
-      overflow: hidden;
-      padding: 0;
-      position: absolute;
-      width: 1px;
-    }
 
-    tr {
-      background-color: whitesmoke;
-      border: 1px solid #ccc;
-      display: block;
-      margin-bottom: 10px;
-      height: 100% !important;
-    }
-    tbody tr {
-      border: none;
-    }
-    td,
-    th {
-      padding: 10px 5px;
-    }
-    td {
-      display: block;
-      font-size: 0.8em;
-      text-align: right;
-    }
+      caption {
+        font-size: 1.3em;
+      }
 
-    td::before {
-      content: attr(data-label);
-      float: left;
-      font-weight: bold;
-      text-transform: uppercase;
-    }
-    td:last-child {
-      border: 1px solid #ccc;
-      padding: 5px;
-      @include flexLayout(center, space-between);
-    }
-    tr:last-child {
-      margin-bottom: 0px;
+      thead {
+        border: none;
+        clip: rect(0 0 0 0);
+        height: 1px;
+        margin: -1px;
+        overflow: hidden;
+        padding: 0;
+        position: absolute;
+        width: 1px;
+      }
+
+      tr {
+        border: none !important;
+        display: block;
+        margin-bottom: 10px;
+        height: 100% !important;
+        background-color: #c8c8c817;
+        padding: 5px 10px !important;
+        border-radius: 8px !important;
+      }
+
+      tbody tr {
+        border: none;
+      }
+
+      td,
+      th {
+        padding: 10px 5px;
+      }
+
+      td {
+        display: block;
+        font-size: 0.8em;
+        text-align: right;
+      }
+
+      td::before {
+
+        td::before {
+          content: attr(data-label);
+          float: left;
+          font-weight: bold;
+          text-transform: uppercase;
+        }
+
+        td:last-child {
+          border: 1px solid #ccc;
+          padding: 5px;
+
+          td:last-child {
+            border: none !important;
+            @include flexLayout(center, space-between);
+            background-color: #c8c8c817;
+            padding: 5px 10px !important;
+            border-radius: 8px !important;
+          }
+
+          tr:last-child {
+
+            tr:last-child {
+              margin-bottom: 0px;
+            }
+          }
+        }
+      }
     }
   }
 }

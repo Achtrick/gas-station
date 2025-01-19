@@ -3,6 +3,14 @@
 .datagrid {
   height: calc(100dvh - 260px);
 }
+.dataform{
+  .title {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--first-color);
+    margin: 10px;
+  }
+}
 
 @media (max-width: 800px) {
   .datagrid {

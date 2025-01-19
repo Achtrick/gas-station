@@ -29,7 +29,7 @@ function XQrCode({ closeAction, onSuccess }) {
     'upc_e' ,
     'linear_codes' ,
     'matrix_codes' ,
-    'unknown']} onScan={onSuccess} />;
+    'unknown']} onScan={onSuccess} />
       </div>
       <div className={styles.actions}>
         <IconButton
