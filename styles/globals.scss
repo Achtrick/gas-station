@@ -242,6 +242,9 @@ input[type="number"]::-webkit-outer-spin-button {
     font-size: 12px !important;
   }
 }
+.MuiSkeleton-root {
+  transform: none !important;
+}
 
 @media (max-width: 800px) {
   .css-1u0lry5-MuiChartsLegend-root {

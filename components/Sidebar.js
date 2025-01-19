@@ -1,6 +1,7 @@
 import styles from "@/styles/Sidebar.module.scss";
 import { Close } from "@mui/icons-material";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
+import ArticleOutlinedIcon from "@mui/icons-material/ArticleOutlined";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import InventoryIcon from "@mui/icons-material/Inventory";
@@ -16,6 +17,7 @@ import { useDispatch } from "react-redux";
 import StockManager from "./StockManager";
 import { StockActions } from "./types/StockActions";
 import XHr from "./ui-components/XHr";
+
 function Sidebar() {
   const router = useRouter();
   const dispatch = useDispatch();
@@ -50,6 +52,12 @@ function Sidebar() {
             className={active("/dashboard") ? styles.active : ""}
           >
             <QueryStatsIcon />
+          </Link>
+          <Link
+            href={"/reports"}
+            className={active("/reports") ? styles.active : ""}
+          >
+            <ArticleOutlinedIcon />
           </Link>
           <Link
             href={"/categories"}
@@ -103,6 +111,15 @@ function Sidebar() {
                 <QueryStatsIcon />
               </i>
               Dashboard
+            </Link>
+            <Link
+              href={"/reports"}
+              className={active("/reports") ? styles.active : ""}
+            >
+              <i>
+                <ArticleOutlinedIcon />
+              </i>
+              Reports
             </Link>
             <Link
               href={"/categories"}

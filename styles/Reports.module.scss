@@ -1,0 +1,31 @@
+.container {
+  padding: 10px;
+}
+.header {
+  width: 100%;
+  padding: 10px;
+  box-shadow: var(--card-box-shadow);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 10px;
+}
+.datepickers {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.body {
+  margin-top: 10px;
+  box-shadow: var(--card-box-shadow);
+  border-radius: 10px;
+  width: 100%;
+  height: calc(100dvh - 110px);
+  padding: 10px;
+
+  .tableContainer {
+    height: 100%;
+    overflow: auto;
+  }
+}

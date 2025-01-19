@@ -13,7 +13,7 @@
     justify-content: center;
     box-shadow: var(--card-box-shadow);
     background-color: var(--card-background-color);
-    border-radius: .75rem;
+    border-radius: 0.75rem;
     border: var(--card-border);
   }
 
@@ -25,18 +25,18 @@
 .expiring-products {
   box-shadow: var(--card-box-shadow);
   background-color: var(--card-background-color);
-  border-radius: .75rem;
+  border-radius: 0.75rem;
   border: var(--card-border);
   margin: 0px 10px;
   padding: 0px 20px;
 
-  .table-container{
+  .table-container {
     height: calc(100dvh - 520px);
     overflow-y: auto;
   }
 
   .prod_danger {
-    background-color: #FFEEF3;
+    background-color: #ffeef3;
     color: red;
     padding: 5px 30px;
     font-size: 0.96rem;
@@ -45,8 +45,8 @@
   }
 
   .prod_warning {
-    background-color: #FFF8DD;
-    color: #F6C000;
+    background-color: #fff8dd;
+    color: #f6c000;
     padding: 5px 30px;
     font-size: 0.96rem;
     font-weight: 600;
@@ -71,15 +71,13 @@
     }
   }
 
-
-
   table {
     border: none;
 
     tr {
       cursor: default;
       border: none;
-      border-bottom: 1px dashed #F1F1F4 !important;
+      border-bottom: 1px dashed #f1f1f4 !important;
     }
 
     td {
@@ -94,7 +92,6 @@
     }
   }
 }
-
 
 @media (max-width: 800px) {
   .charts-container {
@@ -116,7 +113,7 @@
     margin: auto;
     padding: 10px;
 
-    .table-container{
+    .table-container {
       height: calc(100dvh - 380px);
     }
 
@@ -133,6 +130,5 @@
       padding: 5px 10px !important;
       border-radius: 8px !important;
     }
-
   }
 }
