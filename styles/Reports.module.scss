@@ -1,5 +1,14 @@
 .container {
-  padding: 10px;
+  .title {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--first-color);
+    margin: 10px;
+  }
+
+  svg {
+    fill: var(--first-color);
+  }
 }
 .header {
   width: 100%;
@@ -21,7 +30,7 @@
   box-shadow: var(--card-box-shadow);
   border-radius: 10px;
   width: 100%;
-  height: calc(100dvh - 110px);
+  height: calc(100dvh - 145px);
   padding: 10px;
 
   .tableContainer {

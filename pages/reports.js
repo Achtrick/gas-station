@@ -3,6 +3,7 @@ import Layout from "@/components/Layout";
 import XDatePicker from "@/components/ui-components/XDatePicker";
 import styles from "@/styles/Reports.module.scss";
 import { getError } from "@/utils/shared/getError";
+import ArticleOutlinedIcon from "@mui/icons-material/ArticleOutlined";
 import IosShareOutlinedIcon from "@mui/icons-material/IosShareOutlined";
 import { IconButton, Skeleton, Tooltip } from "@mui/material";
 import axios from "axios";
@@ -75,6 +76,16 @@ function Reports(props) {
     <DisconnectedGuard>
       <Layout>
         <div className={styles.container}>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "flex-start",
+            }}
+          >
+            <ArticleOutlinedIcon style={{ width: "35px", height: "35px" }} />
+            <h1 className={styles.title}>Reports</h1>
+          </div>
           <div className={styles.header}>
             <div className={styles.datepickers}>
               <XDatePicker
