@@ -35,9 +35,7 @@ a {
 
 /* Track */
 ::-webkit-scrollbar-track {
-  background: linear-gradient(to bottom,
-      #f0f0f0,
-      #d9d9d9);
+  background: linear-gradient(to bottom, #f0f0f0, #d9d9d9);
   /* Gradient background */
 }
 
@@ -75,9 +73,11 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 // functions
-@mixin flexLayout($alignItems: center,
+@mixin flexLayout(
+  $alignItems: center,
   $justifyContent: center,
-  $flexDirection: row) {
+  $flexDirection: row
+) {
   display: flex;
   flex-direction: $flexDirection;
   align-items: $alignItems;
@@ -87,7 +87,7 @@ input[type="number"]::-webkit-outer-spin-button {
 // inputs
 .defaultInput {
   border-radius: 5px;
-  border: 1px solid #DBDFE9;
+  border: 1px solid #dbdfe9;
   height: 40px;
   width: 100%;
   padding: 5px;
@@ -95,14 +95,13 @@ input[type="number"]::-webkit-outer-spin-button {
   font-size: 0.9rem;
   font-weight: 500;
   line-height: 1.5;
-  color: #4B5675;
-  transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+  color: #4b5675;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
 .defaultInput:focus-visible {
-  outline: 1px solid #DBDFE9 !important;
+  outline: 1px solid #dbdfe9 !important;
   border-bottom: 1px solid #1f85ff;
-
 }
 
 .labeledInput {
@@ -275,16 +274,16 @@ table {
 .MuiInputBase-root {
   border-radius: 5px;
   background-color: white;
-  border: 0px solid #DBDFE9;
+  border: 0px solid #dbdfe9;
   font-size: 1rem;
   font-weight: 600;
   line-height: 1.5;
-  color: #4B5675;
-  transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+  color: #4b5675;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
 .MuiInputBase-root:focus-visible {
-  outline: 1px solid #DBDFE9 !important;
+  outline: 1px solid #dbdfe9 !important;
   border-bottom: 1px solid #1f85ff !important;
 }
 
@@ -302,82 +301,69 @@ table {
 
 @media (max-width: 800px) {
   .css-1u0lry5-MuiChartsLegend-root {
-    .css-1u0lry5-MuiChartsLegend-root {
-      display: none;
+    display: none;
+  }
+
+  table {
+    border: none;
+
+    caption {
+      font-size: 1.3em;
     }
 
-    .responsiveTable {
+    thead {
       border: none;
+      clip: rect(0 0 0 0);
+      height: 1px;
+      margin: -1px;
+      overflow: hidden;
+      padding: 0;
+      position: absolute;
+      width: 1px;
+    }
 
-      caption {
-        font-size: 1.3em;
-      }
+    tr {
+      border: none !important;
+      display: block;
+      margin-bottom: 10px;
+      height: 100% !important;
+      background-color: #c8c8c817;
+      padding: 5px 10px !important;
+      border-radius: 8px !important;
+    }
 
-      thead {
-        border: none;
-        clip: rect(0 0 0 0);
-        height: 1px;
-        margin: -1px;
-        overflow: hidden;
-        padding: 0;
-        position: absolute;
-        width: 1px;
-      }
+    tbody tr {
+      border: none;
+    }
 
-      tr {
-        border: none !important;
-        display: block;
-        margin-bottom: 10px;
-        height: 100% !important;
-        background-color: #c8c8c817;
-        padding: 5px 10px !important;
-        border-radius: 8px !important;
-      }
+    td,
+    th {
+      padding: 10px 5px;
+    }
 
-      tbody tr {
-        border: none;
-      }
+    td {
+      display: block;
+      font-size: 0.8em;
+      text-align: right;
+    }
 
-      td,
-      th {
-        padding: 10px 5px;
-      }
+    td::before {
+      content: attr(data-label);
+      float: left;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
 
-      td {
-        display: block;
-        font-size: 0.8em;
-        text-align: right;
-      }
+    td:last-child {
+      border: none !important;
+      @include flexLayout(center, space-between);
+      background-color: #c8c8c817;
+      padding: 5px 10px !important;
+      border-radius: 8px !important;
+    }
 
-      td::before {
-
-        td::before {
-          content: attr(data-label);
-          float: left;
-          font-weight: bold;
-          text-transform: uppercase;
-        }
-
-        td:last-child {
-          border: 1px solid #ccc;
-          padding: 5px;
-
-          td:last-child {
-            border: none !important;
-            @include flexLayout(center, space-between);
-            background-color: #c8c8c817;
-            padding: 5px 10px !important;
-            border-radius: 8px !important;
-          }
-
-          tr:last-child {
-
-            tr:last-child {
-              margin-bottom: 0px;
-            }
-          }
-        }
-      }
+    tr:last-child {
+      margin-bottom: 0px;
     }
   }
 }

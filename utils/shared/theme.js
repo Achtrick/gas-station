@@ -10,6 +10,7 @@ const lightTheme = createTheme({
   },
   palette: {
     mode: "light",
+    accent: { main: "#173363" },
     white: { main: "#FFFFFF" },
     black: { main: "#000000" },
     primary: { main: "#000000" },

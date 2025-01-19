@@ -101,7 +101,7 @@ function Reports(props) {
               <Skeleton height="calc(100%)" />
             ) : (
               <div className={styles.tableContainer}>
-                <table className="responsiveTable">
+                <table>
                   <thead>
                     <tr>
                       <th>Product</th>
@@ -114,11 +114,11 @@ function Reports(props) {
                   <tbody>
                     {sales.map((sale) => (
                       <tr key={sale._id}>
-                        <td>{sale.product}</td>
-                        <td>{sale.category}</td>
-                        <td>{sale.subCategory}</td>
-                        <td>{sale.qty}</td>
-                        <td>
+                        <td data-label="Product">{sale.product}</td>
+                        <td data-label="Category">{sale.category}</td>
+                        <td data-label="Sub-Category">{sale.subCategory}</td>
+                        <td data-label="Qty">{sale.qty}</td>
+                        <td data-label="Created-At">
                           {moment(sale.createdAt).format("DD-MM-YYYY  HH:mm")}
                         </td>
                       </tr>

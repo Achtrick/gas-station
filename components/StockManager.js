@@ -64,6 +64,14 @@ function StockManager({ stockAction, onClose, qrCode }) {
   };
 
   const executeTransaction = async () => {
+    if (
+      stockAction === StockActions.MINUS &&
+      (qty > Number(product.qty) || qty < 1)
+    ) {
+      return enqueueSnackbar("The qty should be between 1 and " + product.qty, {
+        variant: "warning",
+      });
+    }
     setLoadingAction(true);
     try {
       const { data } = await axios.post(`api/sales/add`, {
@@ -147,7 +155,11 @@ function StockManager({ stockAction, onClose, qrCode }) {
                 />
                 <Button
                   color="black"
-                  style={{ color: "white", width: "100px", backgroundColor: "#1f85ff", textTransform: "capitalize" }}
+                  style={{
+                    color: "white",
+                    width: "100px",
+                    backgroundColor: "#1f85ff",
+                  }}
                   variant="contained"
                   disabled={loadingAction}
                   onClick={executeTransaction}

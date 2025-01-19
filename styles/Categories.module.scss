@@ -1,9 +1,9 @@
 @import "./Arena.module.scss";
 
 .datagrid {
-  height: calc(100dvh - 210px);
+  height: calc(100dvh - 220px);
 }
-.dataform{
+.dataform {
   .title {
     font-size: 1.35rem;
     font-weight: 700;
@@ -14,6 +14,6 @@
 
 @media (max-width: 800px) {
   .datagrid {
-    height: calc(100dvh - 250px);
+    height: calc(100dvh - 260px);
   }
 }

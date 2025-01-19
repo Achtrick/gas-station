@@ -6,7 +6,6 @@
     justify-content: center;
     align-items: flex-start;
 
-
     form {
       width: 100%;
       max-width: 800px;
@@ -19,7 +18,7 @@
       background-color: var(--card-background-color);
       border-radius: 0.75rem;
       border: var(--card-border);
-      padding: 20px 30px;
+      padding: 10px;
 
       .row {
         width: 100%;
@@ -64,7 +63,7 @@
     overflow-y: scroll;
     box-shadow: var(--card-box-shadow);
     background-color: var(--card-background-color);
-    border-radius: .75rem;
+    border-radius: 0.75rem;
     border-top-left-radius: 0px;
     border-top-right-radius: 0px;
     border: var(--card-border);

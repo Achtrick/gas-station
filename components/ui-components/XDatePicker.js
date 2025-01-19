@@ -8,7 +8,7 @@ function XDatePicker({ label, value, onChange }) {
       label={label}
       inputFormat="DD-MM-yyyy"
       value={moment(value, "DD-MM-yyyy")}
-      color="black"
+      color="accent"
       renderInput={(params) => (
         <TextField
           size="small"
