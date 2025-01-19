@@ -286,6 +286,13 @@ table {
   outline: 1px solid #dbdfe9 !important;
   border-bottom: 1px solid #1f85ff !important;
 }
+.Mui-selected {
+  background-color: var(--first-color) !important;
+  color: white !important;
+}
+.MuiDatePickerToolbar-title {
+  color: var(--first-color);
+}
 
 .MuiChartsLegend-series {
   background-color: white !important;
