@@ -98,7 +98,7 @@ function SalesLineChart(props) {
         </>
       ) : (
         <img
-          style={{ width: "100%", height: "100%", objectFit: "contain" }}
+          style={{ width: "50%", height: "100%", objectFit: "contain" }}
           src="data-fail.webp"
         />
       )}
