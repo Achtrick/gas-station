@@ -3,7 +3,6 @@ import Layout from "@/components/Layout";
 import { ModalSizes } from "@/components/types/ModalSizes";
 import XActionMenu from "@/components/ui-components/XActionMenu";
 import XAutoComplete from "@/components/ui-components/XAutoComplete";
-import XHr from "@/components/ui-components/XHr";
 import XPagination from "@/components/ui-components/XPagination";
 import styles from "@/styles/Products.module.scss";
 import { getError } from "@/utils/shared/getError";
