@@ -14,11 +14,12 @@ function XQrCode({ closeAction, onSuccess }) {
         (device) => device.kind === "videoinput"
       );
 
-      setVideoDevicesList(videoDevices);
-
       const backCamera = videoDevices.find((device) =>
         device.label.toLowerCase().includes("back")
       );
+
+      setVideoDevicesList(backCamera);
+
       setDeviceId(backCamera ? backCamera.deviceId : videoDevices[0]?.deviceId);
     });
   }, []);
