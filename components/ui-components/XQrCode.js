@@ -26,7 +26,7 @@ function XQrCode({ closeAction, onSuccess }) {
   return (
     <div className={styles.container}>
       <div className={styles.videoContainer}>
-        <Scanner
+        {/* <Scanner
           allowMultiple={true}
           formats={[
             "aztec",
@@ -62,7 +62,7 @@ function XQrCode({ closeAction, onSuccess }) {
             },
           }}
           deviceId={deviceId}
-        />
+        /> */}
         <div className={styles.devices}>
           {videoDevicesList}
         </div>
