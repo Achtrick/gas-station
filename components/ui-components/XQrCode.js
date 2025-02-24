@@ -6,7 +6,6 @@ import { useEffect, useState } from "react";
 
 function XQrCode({ closeAction, onSuccess }) {
   const [deviceId, setDeviceId] = useState(null);
-  const [videoDevicesList, setVideoDevicesList] = useState([]);
 
   useEffect(() => {
     navigator.mediaDevices.enumerateDevices().then((devices) => {
@@ -20,8 +19,6 @@ function XQrCode({ closeAction, onSuccess }) {
 
       const backCamera = backCameras.length === 2 ? backCameras[1] : backCameras[0]
 
-      setVideoDevicesList(backCamera);
-
       setDeviceId(backCamera ? backCamera.deviceId : videoDevices[0]?.deviceId);
     });
   }, []);
@@ -29,7 +26,7 @@ function XQrCode({ closeAction, onSuccess }) {
   return (
     <div className={styles.container}>
       <div className={styles.videoContainer}>
-        {/* <Scanner
+        <Scanner
           allowMultiple={true}
           formats={[
             "aztec",
@@ -65,10 +62,7 @@ function XQrCode({ closeAction, onSuccess }) {
             },
           }}
           deviceId={deviceId}
-        /> */}
-        <div className={styles.devices}>
-          {JSON.stringify(videoDevicesList)}
-        </div>
+        />
       </div>
       <div className={styles.actions}>
         <IconButton
