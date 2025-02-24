@@ -17,7 +17,7 @@ function XQrCode({ closeAction, onSuccess }) {
         device.label.toLowerCase().includes("back")
       );
 
-      const backCamera = backCameras[0]
+      const backCamera = backCameras[backCameras.length - 1];
 
       setDeviceId(backCamera ? backCamera.deviceId : videoDevices[0]?.deviceId);
     });
@@ -53,14 +53,14 @@ function XQrCode({ closeAction, onSuccess }) {
             "unknown",
           ]}
           onScan={onSuccess}
-          constraints={{
-            video: {
-              facingMode: "environment",
-              width: { ideal: 1280 },
-              height: { ideal: 720 },
-              frameRate: { ideal: 30 },
-            },
-          }}
+          // constraints={{
+          //   video: {
+          //     facingMode: "environment",
+          //     width: { ideal: 1280 },
+          //     height: { ideal: 720 },
+          //     frameRate: { ideal: 30 },
+          //   },
+          // }}
           deviceId={deviceId}
         />
       </div>
