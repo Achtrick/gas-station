@@ -28,6 +28,7 @@
     border-radius: 12px;
   }
 
+
   .videoContainer {
     width: 300px;
     height: 300px;
@@ -36,6 +37,20 @@
     video {
       height: 100%;
       width: 100%;
+    }
+
+
+    // debug
+    .devices{
+      position: absolute;
+      z-index: 652354;
+      background-color: white;
+      height: 100dvh;
+      width: 100dvw;
+      color: black;
+      overflow-x: hidden;
+      overflow-y: auto;
+      font-size: 15px;
     }
   }
 }

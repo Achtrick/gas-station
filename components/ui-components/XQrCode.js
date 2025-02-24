@@ -6,12 +6,16 @@ import { useEffect, useState } from "react";
 
 function XQrCode({ closeAction, onSuccess }) {
   const [deviceId, setDeviceId] = useState(null);
+  const [videoDevicesList, setVideoDevicesList] = useState([]);
 
   useEffect(() => {
     navigator.mediaDevices.enumerateDevices().then((devices) => {
       const videoDevices = devices.filter(
         (device) => device.kind === "videoinput"
       );
+
+      setVideoDevicesList(videoDevices);
+
       const backCamera = videoDevices.find((device) =>
         device.label.toLowerCase().includes("back")
       );
@@ -59,6 +63,9 @@ function XQrCode({ closeAction, onSuccess }) {
           }}
           deviceId={deviceId}
         />
+        <div className={styles.devices}>
+          {videoDevicesList}
+        </div>
       </div>
       <div className={styles.actions}>
         <IconButton
