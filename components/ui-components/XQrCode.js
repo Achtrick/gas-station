@@ -14,9 +14,11 @@ function XQrCode({ closeAction, onSuccess }) {
         (device) => device.kind === "videoinput"
       );
 
-      const backCamera = videoDevices.find((device) =>
+      const backCameras = videoDevices.filter((device) =>
         device.label.toLowerCase().includes("back")
       );
+
+      const backCamera = backCameras.length === 2 ? backCameras[1] : backCameras[0]
 
       setVideoDevicesList(backCamera);
 
