@@ -17,7 +17,7 @@ function XQrCode({ closeAction, onSuccess }) {
         device.label.toLowerCase().includes("back")
       );
 
-      const backCamera = backCameras.length === 2 ? backCameras[1] : backCameras[0]
+      const backCamera = backCameras[0]
 
       setDeviceId(backCamera ? backCamera.deviceId : videoDevices[0]?.deviceId);
     });
