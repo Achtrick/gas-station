@@ -64,7 +64,7 @@ function XQrCode({ closeAction, onSuccess }) {
           deviceId={deviceId}
         /> */}
         <div className={styles.devices}>
-          {videoDevicesList}
+          {JSON.stringify(videoDevicesList)}
         </div>
       </div>
       <div className={styles.actions}>
